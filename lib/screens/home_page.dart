@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/repository/user_repository.dart';
 
 import '../widgets/stories.dart';
 
@@ -16,6 +17,14 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Stories(),
+              RaisedButton(
+                child: Text("LOGOUT"),
+                onPressed: () async{
+                  if(await UserRepository.logout()){
+                    Navigator.of(context).pushReplacementNamed("/");
+                  }
+                },
+              )
             ],
           ),
         ),
