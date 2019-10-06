@@ -3,8 +3,6 @@ import 'package:meditasyon_app/screens/home_page.dart';
 
 import './screens/auth_screen.dart';
 
-
-
 main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
