@@ -80,7 +80,7 @@ class UserRepository {
     print("AB");
     final url = BASE_URL+"testAuth";
     final sp = await SharedPreferences.getInstance();
-    final apiKey = await sp.getString("token");
+    final apiKey =  sp.getString("token");
 
     final res = await http.post(url,headers: {
       'Authorization':'Bearer $apiKey'
@@ -93,5 +93,27 @@ class UserRepository {
 
   }
 
+
+  static Future<bool> logout() async{
+
+    final url = BASE_URL+"logout";
+    final sp = await SharedPreferences.getInstance();
+    final apiKey = sp.getString("token")??"";
+
+    final res = await http.post(url,headers: {
+      'Authorization':'Bearer $apiKey'
+    });
+
+    final data = jsonDecode(res.body);
+
+    print("API RESPONSE : $data");
+    print("CURRENT TOKEN: $apiKey");
+
+
+    sp.setString("token",null);
+
+    return data["success"];
+
+  }
 
 }
