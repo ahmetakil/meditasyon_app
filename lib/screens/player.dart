@@ -4,6 +4,7 @@ import 'package:meditasyon_app/widgets/quarter.dart';
 class AudioPlayerPage extends StatefulWidget {
   final double height;
 
+  static const route = "/player";
   AudioPlayerPage(this.height);
 
   @override
@@ -36,18 +37,21 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
 
   @override
   Widget build(BuildContext context) {
+
+    final w = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Column(
         children: <Widget>[
           AnimatedBuilder(
             builder: (context, anim) {
-              return ClipPath(
-                clipper: RoundedClipper(animation.value),
+              return ClipRRect(
+                borderRadius: BorderRadius.only(bottomLeft:Radius.circular(w/2),bottomRight:Radius.circular(w/2) ),
                 child: Container(
                   child: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      Image.network('https://resimag.com/p1/d826558c809.png',
+                      Image.network('https://www.onlygfx.com/wp-content/uploads/2017/03/blue-burst-abstract-bg.png',
                           fit: BoxFit.cover),
                       Positioned(
                           left: 8,
@@ -91,7 +95,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                         ),
                       ),
                       Positioned(
-                        bottom: 120,
+                        bottom: 50,
                         left: MediaQuery.of(context).size.width / 2 - 42,
                         child: Container(
                           decoration: new BoxDecoration(
@@ -326,9 +330,9 @@ class RoundedClipper extends CustomClipper<Path> {
     path.lineTo(0.0, height - 200);
     path.quadraticBezierTo(
       size.width / 2,
-      height,
+      height + 200,
       size.width,
-      height - 200,
+      height - 100,
     );
     path.lineTo(size.width, 0.0);
     path.close();

@@ -1,6 +1,11 @@
-import 'package:audioplayers/audioplayers.dart';
+
 import 'package:flutter/material.dart';
-import 'package:meditasyon_app/widgets/meditation_tile.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:meditasyon_app/repository/audio_repository.dart';
+import 'package:provider/provider.dart';
+
+import '../utils/utils.dart';
+import '../widgets/meditation_tile.dart';
 import '../models/lesson.dart';
 import '../models/meditasyon.dart';
 
@@ -11,54 +16,94 @@ class MeditationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final lesson = ModalRoute.of(context).settings.arguments as Lesson;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-      ),
-      body: Column(
-        children: <Widget>[
-          ProgressBar(),
-          ...lesson.content.map((Meditasyon m) => MeditationTile(m)).toList()
-        ],
+    return ChangeNotifierProvider.value(
+      value: AudioRepository(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.lightBlue,
+          ),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(icon:Icon(Icons.close),color: Colors.blue,onPressed: () {
+            Navigator.of(context).pop();
+          },),
+        ),
+        body: Column(
+          children: <Widget>[
+            ProgressBar(lesson.progress),
+            ...lesson.content.map((Meditasyon m) => MeditationTile(m)).toList()
+          ],
+        ),
       ),
     );
   }
 }
 
-/*
-FlatButton(
-            child: Text("a"),
-            onPressed: (){
-              String url =
-                  "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3";
-              audioPlayer.play(url);
-              audioPlayer2.play("https://ccrma.stanford.edu/~jos/mp3/cello.mp3",volume: 0.15);
-              audioPlayer2.setReleaseMode(ReleaseMode.LOOP);
-            },
-          )
- */
+
 class ProgressBar extends StatelessWidget {
+
+  final int progress;
+
+  ProgressBar(this.progress);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(6.0),
       child: Row(
         children: <Widget>[
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 50,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(40),
-                ),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: 50,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                      gradient: PURPLE_GRADIENT,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left:20,top:7,bottom:7,right:20),
+                    child: FractionallySizedBox(
+                      widthFactor: progress/100,
+                      child: Container(
+                        height: 36,
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 16,
+                    left: 32,
+                    child: Container(
+                      child:Text("%$progress",style: TextStyle(fontSize: 18),),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
           CircleAvatar(
-            backgroundColor: Colors.green,
+            //TODO DOWNLOAD BUTTON
+            radius: 24,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: PURPLE_GRADIENT_VERTICAL
+              ),
+              child: Icon(Icons.cloud_download,color: Colors.white,),
+            ),
           ),
         ],
       ),

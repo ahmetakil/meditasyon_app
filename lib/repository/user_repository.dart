@@ -5,7 +5,6 @@ import 'package:meditasyon_app/models/login.dart' as prefix0;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../models/user.dart' show User;
 import '../models/lesson.dart';
 import '../models/register.dart' show Register;
@@ -13,16 +12,12 @@ import '../models/login.dart' show UserLogin;
 import '../utils/utils.dart';
 
 class UserRepository {
-  final User user;
-
-  UserRepository(this.user);
-
-  Lesson getLastLesson() {
+  static Lesson getLastLesson(User user) {
     return user.inProgress.keys.toList()[0];
   }
 
-  static Future<Register> register(String email, String username,
-      String password) async {
+  static Future<Register> register(
+      String email, String username, String password) async {
     final url = BASE_URL + "register";
 
     final response = await http.post(url, body: {
@@ -40,7 +35,8 @@ class UserRepository {
       return Register.fromJson(responseData);
     } else {
       // Show snackbar with error message
-      return Register(success:false,message:responseData["message"],authInit:false);
+      return Register(
+          success: false, message: responseData["message"], authInit: false);
     }
   }
 
@@ -55,65 +51,49 @@ class UserRepository {
     final responseData = jsonDecode(response.body);
 
     if (responseData["success"]) {
-
       final userLogin = UserLogin.fromJson(responseData);
       final apiToken = userLogin.user.apiToken;
       SharedPreferences sp = await SharedPreferences.getInstance();
       await sp.setString("token", apiToken);
       return userLogin;
+    } else {
+      final userLogin = UserLogin(
+          success: false, message: responseData["message"], user: null);
 
-  }else{
-
-      final userLogin = UserLogin(success:false,message:responseData["message"],user:null);
-
-
-    return userLogin;
-
+      return userLogin;
     }
-
-
   }
 
-
-  static Future<bool> testAuth() async{
-
+  static Future<bool> testAuth() async {
     print("AB");
-    final url = BASE_URL+"testAuth";
+    final url = BASE_URL + "testAuth";
     final sp = await SharedPreferences.getInstance();
-    final apiKey =  sp.getString("token");
+    final apiKey = sp.getString("token");
 
-    final res = await http.post(url,headers: {
-      'Authorization':'Bearer $apiKey'
-    });
+    final res =
+        await http.post(url, headers: {'Authorization': 'Bearer $apiKey'});
 
     final data = jsonDecode(res.body);
 
     print(data);
     return data["success"];
-
   }
 
-
-  static Future<bool> logout() async{
-
-    final url = BASE_URL+"logout";
+  static Future<bool> logout() async {
+    final url = BASE_URL + "logout";
     final sp = await SharedPreferences.getInstance();
-    final apiKey = sp.getString("token")??"";
+    final apiKey = sp.getString("token") ?? "";
 
-    final res = await http.post(url,headers: {
-      'Authorization':'Bearer $apiKey'
-    });
+    final res =
+        await http.post(url, headers: {'Authorization': 'Bearer $apiKey'});
 
     final data = jsonDecode(res.body);
 
     print("API RESPONSE : $data");
     print("CURRENT TOKEN: $apiKey");
 
-
-    sp.setString("token",null);
+    sp.setString("token", null);
 
     return data["success"];
-
   }
-
 }
