@@ -37,13 +37,6 @@ class Resume extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            FlatButton(
-              child: Text("STOP"),
-              onPressed: () {
-                audioPlayer.pause();
-                audioPlayer2.pause();
-              },
-            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
               child: Stack(
