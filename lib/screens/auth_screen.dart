@@ -25,6 +25,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  bool isLoading = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -47,10 +49,18 @@ class _AuthScreenState extends State<AuthScreen> {
       return;
     }
 
+    setState(() {
+      isLoading = true;
+    });
     _formKey.currentState.save();
 
     final UserLogin userLogin = await UserRepository.login(
         _emailController.text, _passwordController.text);
+
+
+    setState(() {
+      isLoading = false;
+    });
 
     if (!userLogin.success) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -58,6 +68,7 @@ class _AuthScreenState extends State<AuthScreen> {
       ));
       return;
     }
+
     Navigator.of(context).pushReplacementNamed(HomePage.route);
 
   }
@@ -69,8 +80,17 @@ class _AuthScreenState extends State<AuthScreen> {
     }
     _formKey.currentState.save();
 
+    setState(() {
+      isLoading = true;
+    });
+
     final Register userRegister = await UserRepository.register(_emailController.text, _usernameController.text,
         _passwordController.text);
+
+
+    setState(() {
+      isLoading = false;
+    });
 
     if(!userRegister.success){
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -241,8 +261,9 @@ class _AuthScreenState extends State<AuthScreen> {
                                 borderRadius: BorderRadius.circular(8)),
                             onPressed:
                                 mode == AuthMode.LOGIN ? login : register,
-                            child: Text(
-                              mode == AuthMode.LOGIN ? "Giriş Yap" : "Kayıt Ol",
+                            child: isLoading == true ? CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ) : Text(mode == AuthMode.LOGIN ? "Giriş Yap" : "Kayıt Ol",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

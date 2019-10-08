@@ -186,6 +186,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.22.3"
+  seekbar:
+    dependency: "direct main"
+    description:
+      name: seekbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   shared_preferences:
     dependency: "direct main"
     description:

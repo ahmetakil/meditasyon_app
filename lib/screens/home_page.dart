@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditasyon_app/repository/user_repository.dart';
 
 import '../widgets/stories.dart';
+import '../widgets/resume.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -17,6 +18,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Stories(),
+              Resume(null),
               RaisedButton(
                 child: Text("LOGOUT"),
                 onPressed: () async{
