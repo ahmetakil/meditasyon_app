@@ -1,4 +1,6 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/repository/audio_repository.dart';
 import 'package:meditasyon_app/widgets/quarter.dart';
 
 class AudioPlayerPage extends StatefulWidget {
@@ -39,6 +41,8 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
   Widget build(BuildContext context) {
 
     final w = MediaQuery.of(context).size.width;
+
+    final audioRepository = ModalRoute.of(context).settings.arguments as AudioRepository;
 
     return Scaffold(
       body: Column(

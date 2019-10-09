@@ -10,6 +10,7 @@ import './screens/player.dart';
 main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
           AudioPlayerPage.route: (_) => AudioPlayerPage(402),
-
         },
       ),
     );
