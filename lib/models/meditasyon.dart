@@ -1,6 +1,8 @@
 
+import 'package:flutter/cupertino.dart';
+
 enum MeditasyonState{
-  DONE,PLAYING,WAITING
+  PAUSED,PLAYING,WAITING
 }
 
 class Meditasyon{
@@ -13,11 +15,16 @@ class Meditasyon{
   final bool isDownloaded;
   MeditasyonState state;
 
+
   Meditasyon({this.id,this.name,this.path,this.progress,this.totalDuration,this.isDownloaded,this.state = MeditasyonState.WAITING});
 
    void setState(MeditasyonState newState){
     this.state = newState;
   }
+
+  bool get isCompleted {
+     return progress >= 98;
+}
 
   String get stateText{
      if(state == MeditasyonState.WAITING){
@@ -26,9 +33,7 @@ class Meditasyon{
      if(state == MeditasyonState.PLAYING){
        return "Çalıyor";
      }
-     if(state == MeditasyonState.DONE){
-       return "Tamamlandı";
-     }else{
+     else{
        return "Hata";
      }
   }

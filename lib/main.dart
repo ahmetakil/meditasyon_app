@@ -6,11 +6,14 @@ import './screens/home_page.dart';
 import './screens/auth_screen.dart';
 import './screens/meditation_screen.dart';
 import './screens/player.dart';
+import './services/locator.dart';
 
-main() => runApp(MyApp());
+void main() async{
+  setupLocator();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 const BASE_URL = "http://meditation.improsyazilim.com/public/api/";
 
 final PURPLE_GRADIENT = LinearGradient(
-  colors: [
-    Color(0xff892AE5),
-    Color(0xff4100F3),
-  ],
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
-  tileMode: TileMode.clamp
-);
+    colors: [
+      Color(0xff892AE5),
+      Color(0xff4100F3),
+    ],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    tileMode: TileMode.clamp);
 
 final PURPLE_GRADIENT_VERTICAL = LinearGradient(
     colors: [
@@ -19,5 +18,21 @@ final PURPLE_GRADIENT_VERTICAL = LinearGradient(
     ],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    tileMode: TileMode.clamp
-);
+    tileMode: TileMode.clamp);
+
+String printDuration(Duration duration) {
+  String twoDigits(int n) {
+    if (n >= 10) return "$n";
+    return "0$n";
+  }
+
+  String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+  String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+  String output =
+      "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+
+  if (duration.inHours < 1) {
+    return output.substring(3);
+  }
+  return output;
+}
