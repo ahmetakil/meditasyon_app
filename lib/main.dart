@@ -26,10 +26,10 @@ class MyApp extends StatelessWidget {
         title: "Meditasyon",
         routes: {
           //'/': (_) => AuthScreen(),
-          '/': (_) => OnboardingMainPage(),
+          '/': (_) => HomePage(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
-          AudioPlayerPage.route: (_) => AudioPlayerPage(402),
+          AudioPlayerPage.route: (_) => AudioPlayerPage(),
         },
       ),
     );

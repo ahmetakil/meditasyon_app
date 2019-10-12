@@ -1,24 +1,54 @@
-
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:meditasyon_app/repository/audio_repository.dart';
+import 'package:meditasyon_app/screens/home_page.dart';
+import 'package:meditasyon_app/screens/player.dart';
+import 'package:meditasyon_app/widgets/filter.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../utils/utils.dart';
 import '../widgets/meditation_tile.dart';
 import '../models/lesson.dart';
 import '../models/meditasyon.dart';
 
-class MeditationScreen extends StatelessWidget {
+class MeditationScreen extends StatefulWidget {
   static const route = "/meditation-screen";
 
   @override
+  _MeditationScreenState createState() => _MeditationScreenState();
+}
+
+class _MeditationScreenState extends State<MeditationScreen> {
+  BorderRadiusGeometry radius = BorderRadius.only(
+    topLeft: Radius.circular(24.0),
+    topRight: Radius.circular(24.0),
+  );
+
+  PanelController slidingUpController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    Meditasyon example = Meditasyon(
+      id: DateTime.now().toIso8601String(),
+      name: "Nefes Meditasyonu",
+      path:
+          "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3",
+      progress: 100,
+      isDownloaded: false,
+      totalDuration: Duration(minutes: 3, seconds: 55),
+    );
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
+    final double itemWidth = size.width / 2;
     final lesson = ModalRoute.of(context).settings.arguments as Lesson;
 
     return ChangeNotifierProvider.value(
       value: AudioRepository(),
       child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
         appBar: AppBar(
           iconTheme: IconThemeData(
@@ -26,24 +56,85 @@ class MeditationScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
           elevation: 0,
-          leading: IconButton(icon:Icon(Icons.close),color: Colors.blue,onPressed: () {
-            Navigator.of(context).pop();
-          },),
+          leading: IconButton(
+            icon: Icon(Icons.close),
+            color: Colors.blue,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
-        body: Column(
-          children: <Widget>[
-            ProgressBar(lesson.progress),
-            ...lesson.content.map((Meditasyon m) => MeditationTile(m)).toList()
-          ],
+        body: SlidingUpPanel(
+          onPanelOpened: () {
+             //slidingUpController.close();
+            Navigator.of(context)
+                .pushNamed(HomePage.route, arguments: lesson.content[1]);
+           
+          },
+          controller: slidingUpController,
+          maxHeight: MediaQuery.of(context).size.height,
+          minHeight: 72,
+          color: Colors.blueGrey,
+          panel: Filtre(),
+          collapsed: Container(
+            decoration: BoxDecoration(
+              color: Colors.blueGrey,
+              borderRadius: radius,
+              gradient: new LinearGradient(
+                colors: [
+                  Color(0xFFAF60FE),
+                  Color(0xFF4907F4),
+                ],
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.pause,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Pelin perili",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text("Düşünceleri susturma",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600)),
+                  ],
+                ),
+                Icon(
+                  Icons.keyboard_arrow_up,
+                  size: 32,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+          borderRadius: radius,
+          body: Column(
+            children: <Widget>[
+              ProgressBar(lesson.progress),
+              ...lesson.content
+                  .map((Meditasyon m) => MeditationTile(m))
+                  .toList()
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-
 class ProgressBar extends StatelessWidget {
-
   final int progress;
 
   ProgressBar(this.progress);
@@ -68,12 +159,14 @@ class ProgressBar extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left:20,top:7,bottom:7,right:20),
+                    padding: const EdgeInsets.only(
+                        left: 20, top: 7, bottom: 7, right: 20),
                     child: FractionallySizedBox(
-                      widthFactor: progress/100,
+                      widthFactor: progress / 100,
                       child: Container(
                         height: 36,
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(40),
@@ -85,7 +178,10 @@ class ProgressBar extends StatelessWidget {
                     top: 16,
                     left: 32,
                     child: Container(
-                      child:Text("%$progress",style: TextStyle(fontSize: 18),),
+                      child: Text(
+                        "%$progress",
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
                   )
                 ],
@@ -99,10 +195,11 @@ class ProgressBar extends StatelessWidget {
               width: double.infinity,
               height: double.infinity,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: PURPLE_GRADIENT_VERTICAL
+                  shape: BoxShape.circle, gradient: PURPLE_GRADIENT_VERTICAL),
+              child: Icon(
+                Icons.cloud_download,
+                color: Colors.white,
               ),
-              child: Icon(Icons.cloud_download,color: Colors.white,),
             ),
           ),
         ],

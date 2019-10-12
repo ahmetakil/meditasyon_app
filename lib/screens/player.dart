@@ -11,11 +11,10 @@ import '../services/music_service.dart';
 import '../utils/utils.dart';
 
 class AudioPlayerPage extends StatefulWidget {
-  final double height;
 
   static const route = "/player";
 
-  AudioPlayerPage(this.height);
+  AudioPlayerPage();
 
   @override
   _AudioPlayerPageState createState() => _AudioPlayerPageState();
@@ -26,6 +25,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
   AnimationController _controller;
   Animation<double> animation;
   final double startingHeight = 20.0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
       vsync: this,
       duration: Duration(milliseconds: 1000),
     );
-    animation = Tween<double>(begin: startingHeight, end: widget.height)
+    animation = Tween<double>(begin: startingHeight, end: 425)
         .animate(_controller);
     _controller.forward(from: 0.0);
   }
@@ -52,6 +52,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
     final Meditasyon _selected = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      key: _scaffoldKey,
       body: StreamBuilder<
               MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>(
           stream: Observable.combineLatest2(musicService.position,
