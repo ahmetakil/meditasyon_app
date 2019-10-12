@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meditasyon_app/providers/lesson_provider.dart';
 import 'package:meditasyon_app/services/music_service.dart';
-import 'package:provider/provider.dart';
 
 import './playing_slider.dart';
 import '../screens/player.dart';
