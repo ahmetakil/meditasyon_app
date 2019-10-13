@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/meditasyon.dart';
-import 'package:meditasyon_app/repository/audio_repository.dart';
 import 'package:meditasyon_app/widgets/playing_slider.dart';
 import 'package:meditasyon_app/widgets/quarter.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,8 +13,6 @@ class AudioPlayerPage extends StatefulWidget {
 
   static const route = "/player";
 
-  AudioPlayerPage();
-
   @override
   _AudioPlayerPageState createState() => _AudioPlayerPageState();
 }
@@ -25,7 +22,9 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
   AnimationController _controller;
   Animation<double> animation;
   final double startingHeight = 20.0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final musicService = locator<MusicService>();
+
 
   @override
   void initState() {
@@ -49,10 +48,8 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     final musicService = locator<MusicService>();
-    final Meditasyon _selected = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      key: _scaffoldKey,
       body: StreamBuilder<
               MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>(
           stream: Observable.combineLatest2(musicService.position,
@@ -61,13 +58,13 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
               AsyncSnapshot<
                       MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>
                   snapshot) {
-            final Duration _currentDuration = snapshot.data.key;
+            if(!snapshot.hasData){
+              return Container();
+            }
+            final Duration _currentDuration = snapshot.data.key??Duration(seconds: 1);
             final MeditasyonState _state = snapshot.data.value.key;
             final Meditasyon _current = snapshot.data.value.value;
 
-            if (!snapshot.hasData) {
-              return CircularProgressIndicator();
-            }
             return Column(
               children: <Widget>[
                 AnimatedBuilder(
@@ -176,7 +173,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                     Padding(
                       padding: const EdgeInsets.only(left: 32.0),
                       child: ListTile(
-                        title: Text(_selected.name),
+                        title: Text(_current.name),
                         subtitle: Text("Ahmet Akıl"),
                       ),
                     ),

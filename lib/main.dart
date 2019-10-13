@@ -29,9 +29,19 @@ class MyApp extends StatelessWidget {
           '/': (_) => HomePage(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
-          AudioPlayerPage.route: (_) => AudioPlayerPage(),
+         // AudioPlayerPage.route: (_) => AudioPlayerPage(),
         },
       ),
     );
   }
 }
+
+/*
+
+TODO:
+   - Internet bağlantısı yokken requestleri sharedPreferene da tutmak internet bağlantısı geline
+   requestleri yollamak
+
+   - Audioplayer bitince next oynaması lazım
+
+ */

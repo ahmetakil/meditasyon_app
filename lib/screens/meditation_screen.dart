@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:meditasyon_app/repository/audio_repository.dart';
+import 'package:meditasyon_app/providers/lesson_provider.dart';
 import 'package:meditasyon_app/screens/home_page.dart';
 import 'package:meditasyon_app/screens/player.dart';
 import 'package:meditasyon_app/widgets/filter.dart';
@@ -30,6 +30,8 @@ class _MeditationScreenState extends State<MeditationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final LessonProvider lessonProvider = Provider.of<LessonProvider>(context);
+
     var size = MediaQuery.of(context).size;
     Meditasyon example = Meditasyon(
       id: DateTime.now().toIso8601String(),
@@ -43,90 +45,39 @@ class _MeditationScreenState extends State<MeditationScreen> {
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
     final double itemWidth = size.width / 2;
-    final lesson = ModalRoute.of(context).settings.arguments as Lesson;
 
     return ChangeNotifierProvider.value(
-      value: AudioRepository(),
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.lightBlue,
-          ),
+      value: LessonProvider(),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.close),
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-        body: SlidingUpPanel(
-          onPanelOpened: () {
-             //slidingUpController.close();
-            Navigator.of(context)
-                .pushNamed(HomePage.route, arguments: lesson.content[1]);
-           
-          },
-          controller: slidingUpController,
-          maxHeight: MediaQuery.of(context).size.height,
-          minHeight: 72,
-          color: Colors.blueGrey,
-          panel: Filtre(),
-          collapsed: Container(
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: radius,
-              gradient: new LinearGradient(
-                colors: [
-                  Color(0xFFAF60FE),
-                  Color(0xFF4907F4),
-                ],
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+          body: SlidingUpPanel(
+            controller: slidingUpController,
+            maxHeight: MediaQuery.of(context).size.height,
+            minHeight: 70,
+            renderPanelSheet: false,
+            panel: AudioPlayerPage(),
+            collapsed: CollapsedPlayer(radius),
+            borderRadius: radius,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 IconButton(
-                  onPressed: () {},
                   icon: Icon(
-                    Icons.pause,
-                    color: Colors.white,
-                    size: 32,
+                    Icons.close,
+                    color: Colors.blue,
                   ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Pelin perili",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text("Düşünceleri susturma",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-                Icon(
-                  Icons.keyboard_arrow_up,
-                  size: 32,
-                  color: Colors.white,
-                ),
+                ProgressBar(LessonProvider.lessons[0].progress),
+                ...LessonProvider.lessons[0].content
+                    .map((Meditasyon m) => MeditationTile(m))
+                    .toList()
               ],
             ),
-          ),
-          borderRadius: radius,
-          body: Column(
-            children: <Widget>[
-              ProgressBar(lesson.progress),
-              ...lesson.content
-                  .map((Meditasyon m) => MeditationTile(m))
-                  .toList()
-            ],
           ),
         ),
       ),
@@ -142,7 +93,7 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.only(left: 2.0, right: 2, bottom: 2),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -201,6 +152,58 @@ class ProgressBar extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CollapsedPlayer extends StatelessWidget {
+  final BorderRadiusGeometry radius;
+
+  CollapsedPlayer(this.radius);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: radius,
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFFAF60FE),
+            Color(0xFF4907F4),
+          ],
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.pause,
+              color: Colors.white,
+              size: 32,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Pelin perili",
+                style: TextStyle(color: Colors.white),
+              ),
+              Text("Düşünceleri susturma",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w600)),
+            ],
+          ),
+          Icon(
+            Icons.keyboard_arrow_up,
+            size: 32,
+            color: Colors.white,
           ),
         ],
       ),

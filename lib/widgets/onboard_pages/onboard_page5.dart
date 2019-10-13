@@ -1,8 +1,8 @@
-import 'circles_with_image.dart';
-import '../utils/assets.dart';
+import '../circles_with_image.dart';
+import '../../utils/assets.dart';
 import 'package:flutter/material.dart';
 
-class Page3 extends StatelessWidget {
+class Page5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -22,7 +22,7 @@ class Page3 extends StatelessWidget {
                 padding: const EdgeInsets.only(left:48.0,right: 48.0),
                   child: SizedBox(
                     child: Image(
-                      image: AssetImage(Assets.pose3),
+                      image: AssetImage(Assets.pose5),
                       fit: BoxFit.fitHeight,
                     ),
                     height: IMAGE_SIZE,
@@ -32,14 +32,14 @@ class Page3 extends StatelessWidget {
                 SizedBox(height: 64,),
                 Padding(
                   padding: const EdgeInsets.only(left:48.0,right: 48.0,bottom: 8),
-                  child: Text('İstediğin her konuda içerik',
+                  child: Text('Para kazan',
                     style: Theme.of(context).textTheme.display1.copyWith(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left:48.0,right: 48.0),
-                  child: Text('İstediğin her konuda iyi olduğun ne varsa o alanda içerik üret  Yetkin olduğun konularda içerik üret diyelim ki astronomi veya biyolojiye  çok yatkın bir kafan var hiç durma  sende kendi içeriklerini üretmeye  başla',
+                  child: Text('Evet işin en iyi kısmı burdan para kazanmak yaptığın yayınlar kaliteli ise sana bir kod  verilir ve bu kod ile uygulamadan satın alma yapılırsa bundan sende bir pay kazanmış  olursun yani bize getirdiğin her dinleyici  sanada kazandıracaktır',
                     style: Theme.of(context).textTheme.body1.copyWith(color: Colors.black),
                     textAlign: TextAlign.left,
                   ),

@@ -13,10 +13,9 @@ class Meditasyon{
   final int progress;
   final Duration totalDuration;
   final bool isDownloaded;
-  MeditasyonState state;
+   MeditasyonState state;
 
-
-  Meditasyon({this.id,this.name,this.path,this.progress,this.totalDuration,this.isDownloaded,this.state = MeditasyonState.WAITING});
+   Meditasyon({this.id,this.name,this.path,this.progress,this.totalDuration,this.isDownloaded,this.state = MeditasyonState.WAITING});
 
    void setState(MeditasyonState newState){
     this.state = newState;

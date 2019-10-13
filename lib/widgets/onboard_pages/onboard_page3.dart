@@ -1,8 +1,8 @@
-import 'circles_with_image.dart';
-import '../utils/assets.dart';
+import '../circles_with_image.dart';
+import '../../utils/assets.dart';
 import 'package:flutter/material.dart';
 
-class Page1 extends StatelessWidget {
+class Page3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -22,7 +22,7 @@ class Page1 extends StatelessWidget {
                 padding: const EdgeInsets.only(left:48.0,right: 48.0),
                   child: SizedBox(
                     child: Image(
-                      image: AssetImage(Assets.pose1),
+                      image: AssetImage(Assets.pose3),
                       fit: BoxFit.fitHeight,
                     ),
                     height: IMAGE_SIZE,
@@ -32,14 +32,14 @@ class Page1 extends StatelessWidget {
                 SizedBox(height: 64,),
                 Padding(
                   padding: const EdgeInsets.only(left:48.0,right: 48.0,bottom: 8),
-                  child: Text('Yomedi Sanatçısı ol',
+                  child: Text('İstediğin her konuda içerik',
                     style: Theme.of(context).textTheme.display1.copyWith(color: Colors.black,fontSize: 20,fontWeight: FontWeight.w600),
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left:48.0,right: 48.0),
-                  child: Text('Yomedi meditasyon  motivasyon bilim  kültür sanat hikaye belgesel kişisel gelişim gibi birçok konunun işlenebileceği geniş bir anlatım platformudur. Sende kendi  içeriklerini oluşturabilirsin.',
+                  child: Text('İstediğin her konuda iyi olduğun ne varsa o alanda içerik üret  Yetkin olduğun konularda içerik üret diyelim ki astronomi veya biyolojiye  çok yatkın bir kafan var hiç durma  sende kendi içeriklerini üretmeye  başla',
                     style: Theme.of(context).textTheme.body1.copyWith(color: Colors.black),
                     textAlign: TextAlign.left,
                   ),

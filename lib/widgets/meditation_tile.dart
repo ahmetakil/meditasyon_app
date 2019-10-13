@@ -96,7 +96,7 @@ class MeditationTile extends StatelessWidget {
                         SizedBox(
                           width: 6,
                         ),
-                        if (meditasyon.isCompleted && _current == meditasyon)
+                        if (meditasyon.isCompleted)
                           CircleAvatar(
                             radius: 10,
                             backgroundColor: Color(0xff4100F3),

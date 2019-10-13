@@ -1,11 +1,11 @@
-import 'package:meditasyon_app/widgets/onboard_page4.dart';
-import 'package:meditasyon_app/widgets/onboard_page5.dart';
+import 'package:meditasyon_app/widgets/onboard_pages/onboard_page4.dart';
+import 'package:meditasyon_app/widgets/onboard_pages/onboard_page5.dart';
 
 import '../widgets/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import '../widgets/onboard_page1.dart';
-import '../widgets/onboard_page2.dart';
-import '../widgets/onboard_page3.dart';
+import '../widgets/onboard_pages/onboard_page1.dart';
+import '../widgets/onboard_pages/onboard_page2.dart';
+import '../widgets/onboard_pages/onboard_page3.dart';
 
 class _OnboardingMainPageState extends State<OnboardingMainPage> {
   final _controller = new PageController();

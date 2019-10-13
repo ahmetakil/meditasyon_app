@@ -17,7 +17,7 @@ class LessonProvider with ChangeNotifier {
             path: "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3",
             progress: 100,
             isDownloaded: false,
-            totalDuration: Duration(minutes: 3, seconds: 55),
+            totalDuration: Duration(seconds: 27),
           ),
           Meditasyon(
             id: DateTime.now().toIso8601String(),
@@ -25,7 +25,7 @@ class LessonProvider with ChangeNotifier {
             progress: 2,
             path: "http://ccrma.stanford.edu/~jos/mp3/gtr-jazz-3.mp3",
             isDownloaded: false,
-            totalDuration: Duration(minutes: 22, seconds: 3),
+            totalDuration: Duration(seconds:19),
           ),
           Meditasyon(
             id: DateTime.now().toIso8601String(),
@@ -33,7 +33,7 @@ class LessonProvider with ChangeNotifier {
             path: "https://ccrma.stanford.edu/~jos/mp3/cello.mp3",
             progress: 40,
             isDownloaded: false,
-            totalDuration: Duration(seconds: 10),
+            totalDuration: Duration(seconds: 9),
           ),
         ],
         progress: 25),

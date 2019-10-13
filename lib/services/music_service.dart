@@ -31,13 +31,13 @@ class MusicService {
   }
 
   void _initStreams() {
-    _position = BehaviorSubject<Duration>();
+    _position = BehaviorSubject<Duration>.seeded(Duration(seconds: 1));
     _isAudioSeeking = BehaviorSubject<bool>.seeded(false);
     _playerState =
         BehaviorSubject<MapEntry<MeditasyonState, Meditasyon>>.seeded(
       MapEntry(
         MeditasyonState.PAUSED,
-        Meditasyon(id: "1",name: "t",path: "",totalDuration: Duration(seconds: 1),isDownloaded: false,progress: 1),
+        Meditasyon(id: "1",name: "t",path: "https://github.com/anars/blank-audio/blob/master/1-minute-of-silence.mp3",totalDuration: Duration(seconds: 1),isDownloaded: false,progress: 1),
       ),
     );
   }
