@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:meditasyon_app/providers/lesson_provider.dart';
 import 'package:meditasyon_app/screens/home_page.dart';
 import 'package:meditasyon_app/screens/player.dart';
-import 'package:meditasyon_app/widgets/filter.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -11,6 +9,8 @@ import '../utils/utils.dart';
 import '../widgets/meditation_tile.dart';
 import '../models/lesson.dart';
 import '../models/meditasyon.dart';
+import '../services/locator.dart';
+import '../services/music_service.dart';
 
 class MeditationScreen extends StatefulWidget {
   static const route = "/meditation-screen";
@@ -161,52 +161,75 @@ class ProgressBar extends StatelessWidget {
 
 class CollapsedPlayer extends StatelessWidget {
   final BorderRadiusGeometry radius;
+  final musicService = locator<MusicService>();
 
   CollapsedPlayer(this.radius);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: radius,
-        gradient: LinearGradient(
-          colors: [
-            Color(0xFFAF60FE),
-            Color(0xFF4907F4),
-          ],
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.pause,
-              color: Colors.white,
-              size: 32,
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "Pelin perili",
-                style: TextStyle(color: Colors.white),
+    return StreamBuilder<MapEntry<MeditasyonState,Meditasyon>>(
+        stream: musicService.playerState,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Container();
+          }
+
+          final MeditasyonState state = snapshot.data.key;
+          final Meditasyon currentMeditasyon = snapshot.data.value;
+
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: radius,
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFFAF60FE),
+                  Color(0xFF4907F4),
+                ],
               ),
-              Text("Düşünceleri susturma",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600)),
-            ],
-          ),
-          Icon(
-            Icons.keyboard_arrow_up,
-            size: 32,
-            color: Colors.white,
-          ),
-        ],
-      ),
-    );
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                IconButton(
+                  onPressed: () {
+                    switch (state) {
+                      case MeditasyonState.PLAYING:
+                        musicService.pauseMusic(currentMeditasyon);
+                        break;
+                      case MeditasyonState.PAUSED:
+                        musicService.playMusic(currentMeditasyon);
+                        break;
+                      default:
+                        break;
+                    }
+                  },
+                  icon: Icon(
+                    state == MeditasyonState.PLAYING ? Icons.pause : Icons.play_arrow ,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      currentMeditasyon.name??"<>",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(currentMeditasyon.author,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600)),
+                  ],
+                ),
+                Icon(
+                  Icons.keyboard_arrow_up,
+                  size: 32,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
