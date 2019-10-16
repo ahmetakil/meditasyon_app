@@ -26,17 +26,20 @@ class Resume extends StatelessWidget {
        Navigator.of(context).pushNamed(MeditationScreen.route,arguments: lastLesson);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+        padding: const EdgeInsets.symmetric( vertical: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "Kaldığın Yerden Devam Et",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
-            ),
-            SizedBox(
+        SizedBox(
               height: 10,
-            ),
+           ),
+//            Text(
+//              "Kaldığın Yerden Devam Et",
+//              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+//            ),
+//            SizedBox(
+//              height: 10,
+//            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
               child: Stack(
@@ -56,7 +59,7 @@ class Resume extends StatelessWidget {
                         child: Text(
                           lastLesson.name,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 28),
+                              fontWeight: FontWeight.bold, fontSize: 28,color: Colors.white),
                         ),
                         alignment: Alignment.topLeft),
                   ),
@@ -65,7 +68,7 @@ class Resume extends StatelessWidget {
                     child: Align(
                       child: Text(
                         lastLesson.authorName,
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20,color: Colors.white),
                       ),
                       alignment: Alignment.topLeft,
                     ),
@@ -76,7 +79,7 @@ class Resume extends StatelessWidget {
                       child: Text(
                         "%${lastLesson.progress.toString()} tamamlandı",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22),
+                            fontWeight: FontWeight.bold, fontSize: 22,color: Colors.white),
                       ),
                       alignment: Alignment.bottomLeft,
                     ),

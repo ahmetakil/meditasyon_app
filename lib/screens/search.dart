@@ -8,9 +8,9 @@ import 'package:meditasyon_app/widgets/top_authors.dart';
 import '../widgets/stories.dart';
 import '../widgets/resume.dart';
 
-class HomePage extends StatelessWidget {
+class Search extends StatelessWidget {
 
-  static const route = "/home";
+  static const route = "/search";
 
   @override
   Widget build(BuildContext context) {
@@ -25,30 +25,14 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Stories(),
-                Resume(null),
-                FeaturedLessons(),
-                Tags(),
-                FeaturedLessons(),
-                Padding(
-                  padding: const EdgeInsets.only(left:8.0),
-                  child: Text("En iyi yayıncılar",style: TextStyle(fontWeight: FontWeight.w600),),
-                ),
-                TopAuthors(),
 
-                RaisedButton(
-                  child: Text("LOGOUT"),
-                  onPressed: () async{
-                    if(await UserRepository.logout()){
-                      Navigator.of(context).pushReplacementNamed("/");
-                    }
-                  },
-                )
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationWidget()
+      bottomNavigationBar: BottomNavigationWidget(),
     );
   }
 }
+

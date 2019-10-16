@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class OutlineButtonWidget extends StatelessWidget {
-  const OutlineButtonWidget({
-    Key key,
-  }) : super(key: key);
+  String title;
+  double width;
+  OutlineButtonWidget(this.title,this.width);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30.0,
-      width: 180,
+      height: 28.0,
+      width: width,
       child: GestureDetector(
         onTap: () {},
         child: Container(
@@ -27,12 +27,12 @@ class OutlineButtonWidget extends StatelessWidget {
             children: <Widget>[
               Center(
                 child: Text(
-                  "Profili Düzenle",
+                  title,
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontFamily: 'Montserrat',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
                     letterSpacing: 1,
                   ),
                 ),
