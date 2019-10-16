@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/screens/notifications.dart';
 import 'package:meditasyon_app/screens/onboardscreen.dart';
 import 'package:meditasyon_app/screens/profile.dart';
 import 'package:meditasyon_app/screens/search.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         title: "Meditasyon",
         routes: {
           //'/': (_) => AuthScreen(),
-          '/': (_) => Search(),
+          '/': (_) => NotificationScreen(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
          // AudioPlayerPage.route: (_) => AudioPlayerPage(),
