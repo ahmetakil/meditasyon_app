@@ -1,12 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:meditasyon_app/screens/meditation_screen.dart';
-
-import '../providers/lesson_provider.dart';
-import '../repository/user_repository.dart';
-
-import '../models/lesson.dart';
-import '../models/user.dart';
 
 class TopAuthors extends StatelessWidget {
   @override

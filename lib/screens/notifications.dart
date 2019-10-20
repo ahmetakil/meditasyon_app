@@ -11,71 +11,95 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return SafeArea(
       child: Scaffold(
           body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Bugün",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                ),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                  Text("Bugün"),
-                  Text("30 Eylül 2019"),
-                  Spacer(),
-                  IconButton(icon: Icon(Icons.ac_unit),),
-                  IconButton(icon: Icon(Icons.ac_unit),),
-                  IconButton(icon: Icon(Icons.ac_unit),),
-                  IconButton(icon: Icon(Icons.ac_unit),)
-                ],),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Merhaba 6 bildirimin var"),
-              ),
-              Expanded(
-                child: Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
-                  margin: EdgeInsets.only(top: 20.0, bottom: 10),
-                  child: ListView(
-                    children: <Widget>[
-                      _buildItem("Düşünce silme", "Anıl",
-                          "https://cdn.pixabay.com/photo/2019/09/04/02/52/road-4450611_1280.jpg"),
-                      _buildItem("Ruh Temizleme", "Anıl",
-                          "https://cdn.pixabay.com/photo/2016/05/05/02/35/hot-air-ballons-1373167_1280.jpg"),
-                      _buildItem("Nefes", "Anıl",
-                          "https://cdn.pixabay.com/photo/2019/09/10/13/24/asia-4466113_1280.jpg"),
-                      _buildItem("Ruh Temizleme", "Anıl",
-                          "https://cdn.pixabay.com/photo/2016/05/05/02/32/balloon-1373161_1280.jpg"),
-                      _buildItem("Düşünce silme", "Anıl",
-                          "https://cdn.pixabay.com/photo/2019/09/25/15/57/dog-4504013_1280.jpg"),
-                      _buildItem("Ruhunu Genişlet", "Anıl",
-                          "https://cdn.pixabay.com/photo/2019/10/09/00/22/volcano-4536198_1280.jpg"),
-                    ],
-                  ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text("30 Eylül 2019",
+                        style: TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.bold)),
+                  ],
                 ),
+                Spacer(),
+                Icon(Icons.delete),
+                SizedBox(
+                  width: 6,
+                ),
+                Icon(Icons.cloud_download),
+                SizedBox(
+                  width: 6,
+                ),
+                Icon(Icons.mic),
+                SizedBox(
+                  width: 6,
+                ),
+                Icon(Icons.send)
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0),
+            child: Text(
+              "Merhaba 6 bildirimin var",
+              style: TextStyle(color: Colors.black38, fontSize: 18),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(top: 20.0),
+              child: ListView(
+                children: <Widget>[
+                  _acceptBuildItem(
+                    "19:34 PM",
+                    "Gönderdiğin ses onaylandı",
+                    "Merhaba firuzan Akşam hanım ben Muhammed gönderdiğiniz  ses oyaylandı ve şu anda yayında bize şu numaradan 0542 788 88 95 ulaşın ve konuşalım veya şu mailden yazın  mmskre@gmail.com",
+                  ),
+                  _followBuildItem(
+                    "19:34 PM",
+                    "Bu gün sen tam 20 kişi takip etti",
+                    "Merhaba firuzan Akşam hanım ben Muhammed gönderdiğiniz  ses oyaylandı ve şu anda yayında bize şu numaradan 0542 788 88 95 ulaşın ve konuşalım veya şu mailden yazın  mmskre@gmail.com",
+                  ),
+                  _viewersBuildItem("16:34 AM","Merhaba firuzan Akşam hanım ", "Anıl"),
+                  
+                  _billingBuildItem("19:34 PM","Düşünce silme", "Anıl"),
+                  _acceptBuildItem("19:34 PM", "Düşünce silme", "Anıl"),
+                  _billingBuildItem("19:34 PM","Düşünce silme", "Anıl"),
+                  _viewersBuildItem("19:34 PM","Düşünce silme", "Anıl"),
+                ],
               ),
-            ],
-          )),
+            ),
+          ),
+        ],
+      )),
     );
   }
 
-  Widget _buildItem(title, subtitle, imgUrl) {
+  Widget _acceptBuildItem(time, title, subtitle) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
           decoration: BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
-                    const Color(0xFF3366FF),
-                    const Color(0xFF00CCFF),
+                    const Color(0xFFFF5B9D),
+                    const Color(0xFFFFAD69),
                   ],
                   begin: const FractionalOffset(0.0, 0.0),
                   end: const FractionalOffset(1.0, 0.0),
@@ -83,7 +107,204 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   tileMode: TileMode.clamp),
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
           height: 120.0,
-          child: null,
+          child: Container(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    time,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  Text(subtitle,
+                      style: TextStyle(color: Colors.white, fontSize: 12))
+                ],
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget _followBuildItem(time, title, subtitle) {
+    double pos = 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
+          decoration: BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [
+                    const Color(0xFF17E6E2),
+                    const Color(0xFFC58BFD),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          height: 120.0,
+          child: Container(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    time,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  Container(
+                    height: 32,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget _viewersBuildItem(time,title, subtitle) {
+    double pos = 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
+          decoration: BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [
+                    const Color(0xFF58E09E),
+                    const Color(0xFFBEE772),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          height: 120.0,
+          child:  Container(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    time,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  Container(
+                    height: 32,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget _billingBuildItem(time,title, subtitle) {
+    double pos = 0;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
+          decoration: BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [
+                    const Color(0xFFA65BF9),
+                    const Color(0xFF5552FE),
+                  ],
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  tileMode: TileMode.clamp),
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          height: 120.0,
+          child: Container(
+              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Text(
+                    time,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  Container(
+                    height: 32,
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                        Positioned(
+                          left: pos = pos+12,
+                          child: FlutterLogo(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
         ),
       ],
     );

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import './meditasyon.dart';
 
 class Lesson {

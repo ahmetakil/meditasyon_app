@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:meditasyon_app/models/login.dart' as prefix0;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user.dart' show User;
 import '../models/lesson.dart';
-import '../models/register.dart' show Register;
 import '../models/login.dart' show UserLogin;
+import '../models/register.dart' show Register;
+import '../models/user.dart' show User;
 import '../utils/utils.dart';
 
 class UserRepository {

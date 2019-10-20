@@ -1,5 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
+
 
 enum MeditasyonState{
   PAUSED,PLAYING,WAITING
