@@ -55,6 +55,7 @@ class SearchBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(40),
                 ),
                 child: Row(
+                  
                   children: <Widget>[
                     Text("sanatçı ve içerik ara",style: TextStyle(color: Colors.white),),
                     Spacer(),
