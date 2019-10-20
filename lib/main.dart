@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditasyon_app/screens/notifications.dart';
 import 'package:meditasyon_app/screens/onboardscreen.dart';
 import 'package:meditasyon_app/screens/profile.dart';
-import 'package:meditasyon_app/screens/search.dart';
+import 'package:meditasyon_app/screens/tabs/search.dart';
 import 'package:provider/provider.dart';
 
 import './providers/lesson_provider.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         title: "Meditasyon",
         routes: {
           //'/': (_) => AuthScreen(),
-          '/': (_) => NotificationScreen(),
+          '/': (_) => HomePage(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
          // AudioPlayerPage.route: (_) => AudioPlayerPage(),

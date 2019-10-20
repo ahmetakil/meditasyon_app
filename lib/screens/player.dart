@@ -202,7 +202,9 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                               Icons.skip_previous,
                               size: 36,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              musicService.playPrevious(context);
+                            },
                           ),
                           FloatingActionButton(
                             child: _state == MeditasyonState.PLAYING
@@ -227,7 +229,9 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                               Icons.skip_next,
                               size: 36,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              musicService.playNext(context);
+                            },
                           ),
                           IconButton(
                             icon: Icon(

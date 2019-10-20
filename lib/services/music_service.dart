@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
+import '../providers/lesson_provider.dart';
 
 import '../models/meditasyon.dart';
 import '../models/lesson.dart';
@@ -35,7 +36,7 @@ class MusicService {
   void _initStreams() {
     _position = BehaviorSubject<Duration>.seeded(Duration(seconds: 1));
     _isAudioSeeking = BehaviorSubject<bool>.seeded(false);
-    _playerState = BehaviorSubject<MapEntry<MeditasyonState, Meditasyon>>.seeded(MapEntry(MeditasyonState.PAUSED,Meditasyon(id: "1",name: "t",path: "https://github.com/anars/blank-audio/blob/master/1-minute-of-silence.mp3",totalDuration: Duration(seconds: 1),isDownloaded: false,progress: 1)));
+    _playerState = BehaviorSubject<MapEntry<MeditasyonState, Meditasyon>>.seeded(MapEntry(MeditasyonState.PAUSED,Meditasyon(id: "1",name: "Kaldığın yerden devam et",path: "https://github.com/anars/blank-audio/blob/master/1-minute-of-silence.mp3",totalDuration: Duration(seconds: 1),isDownloaded: false,progress: 1)));
     _lessons = new PublishSubject<Lesson>();
     _lessons.add(Lesson(
         imageUrl:
@@ -116,6 +117,39 @@ class MusicService {
   void updatePosition(Duration duration) {
     _position.add(duration);
   }
+
+  void playPrevious(BuildContext context){
+
+    Meditasyon current = _playerState.value.value;
+    int currentIndex = LessonProvider.lessons[0].content.indexOf(current);
+
+    if(currentIndex == 0){
+      audioSeek(0);
+      return;
+    }
+
+    Meditasyon previous = LessonProvider.lessons[0].content[currentIndex-1];
+
+    stopMusic();
+    playMusic(previous);
+  }
+
+  void playNext(BuildContext context){
+
+    Meditasyon current = _playerState.value.value;
+    int currentIndex = LessonProvider.lessons[0].content.indexOf(current);
+
+    if(currentIndex == LessonProvider.lessons[0].content.length - 1){
+      //TODO GO TO NEXT LESSON
+      return;
+    }
+
+    Meditasyon next = LessonProvider.lessons[0].content[currentIndex+1];
+
+    stopMusic();
+    playMusic(next);
+  }
+
 
   void invertSeekingState() {
     final _value = _isAudioSeeking.value;
