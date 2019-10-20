@@ -29,7 +29,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     mode = AuthMode.LOGIN;
     super.initState();
   }

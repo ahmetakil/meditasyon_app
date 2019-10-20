@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 import 'package:meditasyon_app/screens/meditation_screen.dart';
-
-import '../providers/lesson_provider.dart';
-import '../repository/user_repository.dart';
 
 import '../models/lesson.dart';
 import '../models/user.dart';
+import '../providers/lesson_provider.dart';
+import '../repository/user_repository.dart';
 
 class Resume extends StatelessWidget {
   final User user;

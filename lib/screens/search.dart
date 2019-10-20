@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meditasyon_app/repository/user_repository.dart';
 import 'package:meditasyon_app/widgets/bottom_navigation.dart';
-import 'package:meditasyon_app/widgets/featuredlessons.dart';
-import 'package:meditasyon_app/widgets/tags.dart';
-import 'package:meditasyon_app/widgets/top_authors.dart';
 
 import '../widgets/stories.dart';
-import '../widgets/resume.dart';
 
 class Search extends StatelessWidget {
 

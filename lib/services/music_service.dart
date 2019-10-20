@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:rxdart/rxdart.dart';
-import 'dart:async';
 
-import '../models/meditasyon.dart';
 import '../models/lesson.dart';
+import '../models/meditasyon.dart';
 
 class MusicService {
   AudioPlayer _player;

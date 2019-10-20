@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/providers/lesson_provider.dart';
-import 'package:meditasyon_app/screens/home_page.dart';
 import 'package:meditasyon_app/screens/player.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../utils/utils.dart';
-import '../widgets/meditation_tile.dart';
-import '../models/lesson.dart';
 import '../models/meditasyon.dart';
 import '../services/locator.dart';
 import '../services/music_service.dart';
+import '../utils/utils.dart';
+import '../widgets/meditation_tile.dart';
 
 class MeditationScreen extends StatefulWidget {
   static const route = "/meditation-screen";

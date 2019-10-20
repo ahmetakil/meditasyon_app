@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/meditasyon.dart';
 import 'package:meditasyon_app/widgets/playing_slider.dart';
