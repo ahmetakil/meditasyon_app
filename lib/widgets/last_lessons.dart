@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/home_page_model.dart';
 
-class FeaturedLessons extends StatefulWidget {
-  List<LastLesson> data;
-  FeaturedLessons(this.data);
+class LastLessons extends StatefulWidget {
+  List<TopLessonsWeekly> data;
+  LastLessons(this.data);
   @override
-  _FeaturedLessonsState createState() => _FeaturedLessonsState();
+  _LastLessonsState createState() => _LastLessonsState();
 }
 
-class _FeaturedLessonsState extends State<FeaturedLessons> {
+class _LastLessonsState extends State<LastLessons> {
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20.0,bottom: 10),
       height: 160.0,
       child: ListView.builder(
-        itemCount: widget.data.length,
-        scrollDirection: Axis.horizontal, itemBuilder: (BuildContext context, int index) {
-          return _buildItem(widget.data[index].name,widget.data[index].name,widget.data[index].imageUrl);
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.data.length, itemBuilder: (BuildContext context, int index) {
+         return _buildItem(widget.data[index].name,widget.data[index].name,widget.data[index].imageUrl);
         },
-       
+        
       ),
     );
   }

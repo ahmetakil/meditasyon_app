@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const BASE_URL = "http://meditation.improsyazilim.com/public/api/";
+const BASE_URL = "http://meditationv1.improsyazilim.com/public/api/";
 
 final PURPLE_GRADIENT = LinearGradient(
     colors: [

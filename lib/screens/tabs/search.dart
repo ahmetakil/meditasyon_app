@@ -25,7 +25,7 @@ class Search extends StatelessWidget {
             
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Stories(),
+                // Stories(),
                 SearchBar(),
 
               ],

@@ -14,7 +14,6 @@ class Resume extends StatelessWidget {
   AudioPlayer audioPlayer = AudioPlayer();
   AudioPlayer audioPlayer2 = AudioPlayer();
 
-
   @override
   Widget build(BuildContext context) {
     UserRepository userRepository;
@@ -22,23 +21,24 @@ class Resume extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-       Navigator.of(context).pushNamed(MeditationScreen.route,arguments: lastLesson);
+        Navigator.of(context)
+            .pushNamed(MeditationScreen.route, arguments: lastLesson);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric( vertical: 5),
+        padding: const EdgeInsets.only(right: 10, left: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-        SizedBox(
+            SizedBox(
               height: 10,
-           ),
-//            Text(
-//              "Kaldığın Yerden Devam Et",
-//              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-//            ),
-//            SizedBox(
-//              height: 10,
-//            ),
+            ),
+            Text(
+              "Kaldığın Yerden Devam Et",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               height: MediaQuery.of(context).size.height * 0.2,
               child: Stack(
@@ -58,7 +58,9 @@ class Resume extends StatelessWidget {
                         child: Text(
                           lastLesson.name,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 28,color: Colors.white),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28,
+                              color: Colors.white),
                         ),
                         alignment: Alignment.topLeft),
                   ),
@@ -67,7 +69,7 @@ class Resume extends StatelessWidget {
                     child: Align(
                       child: Text(
                         lastLesson.authorName,
-                        style: TextStyle(fontSize: 20,color: Colors.white),
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       alignment: Alignment.topLeft,
                     ),
@@ -78,7 +80,9 @@ class Resume extends StatelessWidget {
                       child: Text(
                         "%${lastLesson.progress.toString()} tamamlandı",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22,color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Colors.white),
                       ),
                       alignment: Alignment.bottomLeft,
                     ),
