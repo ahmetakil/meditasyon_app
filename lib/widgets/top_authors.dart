@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/home_page_model.dart';
+import 'package:meditasyon_app/utils/utils.dart';
 
 class TopAuthors extends StatefulWidget {
   List<BestAuthor> data;
@@ -20,7 +21,7 @@ class _TopAuthorsState extends State<TopAuthors> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.data.length, itemBuilder: (BuildContext context, int index) {
-          return _buildItem(widget.data[index].name);
+          return _buildItem(widget.data[index].profilePicture);
         },
         
       ),
@@ -28,6 +29,7 @@ class _TopAuthorsState extends State<TopAuthors> {
   }
 
   Widget _buildItem(imgUrl) {
+    print(IMAGE_BASE_URL+imgUrl);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -36,14 +38,14 @@ class _TopAuthorsState extends State<TopAuthors> {
           decoration: BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(imgUrl)
+                  image: NetworkImage(IMAGE_BASE_URL+imgUrl)
               ),
               borderRadius: BorderRadius.all(Radius.circular(64.0))
           ),
           width: 64.0,
           height: 64.0,
 
-          child: Text(imgUrl.toString()),
+          child: null,
         ),
 
       ],

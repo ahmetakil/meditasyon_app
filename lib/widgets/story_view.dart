@@ -13,7 +13,7 @@ class _StoryPageViewState extends State<StoryPageView> {
   Widget build(BuildContext context) {
     final controller = StoryController();
     final List<StoryItem> storyItems = [
-      StoryItem.text(widget.data.description, Colors.blueGrey),
+      StoryItem.pageImage(NetworkImage(widget.data.imageUrl)),
     
     ];
     
