@@ -13,7 +13,6 @@ class FeaturedLessons extends StatelessWidget {
           _buildItem("Ruh Temizleme","Anıl","https://cdn.pixabay.com/photo/2016/05/05/02/35/hot-air-ballons-1373167_1280.jpg"),
           _buildItem("Nefes","Anıl","https://cdn.pixabay.com/photo/2019/09/10/13/24/asia-4466113_1280.jpg"),
           _buildItem("Ruh Temizleme","Anıl","https://cdn.pixabay.com/photo/2016/05/05/02/32/balloon-1373161_1280.jpg"),
-          _buildItem("Düşünce silme","Anıl","https://cdn.pixabay.com/photo/2019/09/25/15/57/dog-4504013_1280.jpg"),
           _buildItem("Ruhunu Genişlet","Anıl","https://cdn.pixabay.com/photo/2019/10/09/00/22/volcano-4536198_1280.jpg"),
         ],
       ),

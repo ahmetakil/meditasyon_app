@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/widgets/outline_button.dart';
 import 'package:meditasyon_app/widgets/resume.dart';

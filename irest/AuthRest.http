@@ -4,8 +4,8 @@ POST  http://meditationv1.improsyazilim.com/public/api/register HTTP/1.1
 content-type: application/json
 
 {
-    "name" : "Kaan",
-    "email" :"kaangorur@hotmail.com",
+    "name" : "Anil",
+    "email" :"alianilkocak@gmail.com",
     "password" :"123123123"
 }
 
