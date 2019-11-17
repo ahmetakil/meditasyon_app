@@ -1,0 +1,29 @@
+//Register REST
+
+POST  http://meditationv1.improsyazilim.com/public/api/register HTTP/1.1
+content-type: application/json
+
+{
+    "name" : "Kaan",
+    "email" :"kaangorur@hotmail.com",
+    "password" :"123123123"
+}
+
+###
+//Login REST
+
+POST  http://meditationv1.improsyazilim.com/public/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email" :"kaangorur@hotmail.com",
+    "password" :"123123123"
+}
+
+###
+//Logout REST
+
+POST  http://meditationv1.improsyazilim.com/public/api/logout HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZTM5YjhmNjQ2NmVjNTQ3OTVmYWNkNDQ1MjBjMzA2MDhiODZjYTFhYzZlN2RjMWZlYTBiZGM2NzkxZmQ3NmM2YzRkNjI5ZjMzOWExM2ViMDMiLCJpYXQiOjE1NzM1NzM2MDQsIm5iZiI6MTU3MzU3MzYwNCwiZXhwIjoxNjA1MTk2MDA0LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.Txcvesf61_7uUjf6D1c7Pp_qVcMgryNZrA8fKjbRPPqE5HV_WFY7y9j52iU0qRDzz-mx6i1wep-C7RAjZriX2aCAi10vVMeFabK56WTkku6_DpNt1stXslJUHqWwRzSb_UiVYd467JSiRrcIRN2yV-3x5j3W3EXvW5HJlVIk1dTfUPDZrceAE468D3MyUUXevoVJm6lNRBZwRF_3-cJA2XJHR0nOZoQw_tzrcD6lBTbRbh3_zof9b6HJA7mezx9BVWZHEEhZm34CQQJZqQViXBM6PrcYLIrScbWSmdDbpGSdEtHS0ikzemg_IcnYj9nBlBEMfX8JhrLU2csWaNptzT5wMyWNusWQoGY1G0XUlyKIls_N7tXQ0cCMK7Yw96XTSPLF-YlmXai7xO4wMOh1rcTvMEi4vr3jq0wcrF8dZBpJ6OyMinbXvq9tvTg0o7yflTQGHW-wT7GpgDpHJ1k178U2K6DfRRPKVfi_XDIWAnTQNFMylsJI53fWz_-cmIugPgH416YnrR0lIywYcm0-csrbn2-uTxt0-oUzj86mPIAVFLYNkIfzejxewctrIFKLOALN9_7dza23842eN1fAuDjZq_nlswi-Q57XrNNW_6j7j6h3dJh88VtmoWWmmq5n3ReICSgCVNoBZA8x9LK0j9yZdeUVmXakbFvQzvOaS9g
+
