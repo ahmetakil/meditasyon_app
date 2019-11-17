@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   HomePageModel data;
   Future<HomePageModel> getData() async {
     data = await HomagePageRepository.index();
-    print(data.message);
     setState(() {});
     return data;
   }
@@ -63,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                           ),
-                          TopAuthors(data.bestAuthors),
+                          //TopAuthors(data.bestAuthors),
                           // RaisedButton(
                           //   child: Text("LOGOUT"),
                           //   onPressed: () async {
