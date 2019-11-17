@@ -19,10 +19,16 @@ class _StoryPageViewState extends State<StoryPageView> {
     
     return Material(
       child: StoryView(
+        
         storyItems,
         controller: controller,
-        inline: false,
+        inline: true,
         repeat: false,
+        onComplete: (){
+         setState(() {
+          //  storyItems.add(StoryItem.text("title", Colors.pink));
+         });
+        },
       ),
     );
   }

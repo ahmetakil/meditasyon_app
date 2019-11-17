@@ -54,8 +54,8 @@ class _AvatarState extends State<Avatar> {
             border: Border.all(color: Colors.blueAccent, width: 2),
           ),
           child: CircleAvatar(
-            backgroundColor: colors[random.nextInt(colors.length)],
-            radius: 36,
+            backgroundImage: NetworkImage(widget.itemData.imageUrl),
+            radius: 30,
           ),
         ),
       ),
