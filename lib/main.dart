@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: "Meditasyon",
         routes: {
-          '/': (_) => AuthScreen(),
-          // '/': (_) => HomePage(),
+          // '/': (_) => AuthScreen(),
+          '/': (_) => HomePage(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
          // AudioPlayerPage.route: (_) => AudioPlayerPage(),

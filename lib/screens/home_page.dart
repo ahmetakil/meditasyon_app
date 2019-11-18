@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:meditasyon_app/models/home_page_model.dart';
-import 'package:meditasyon_app/repository/homepage_repository.dart';
-import 'package:meditasyon_app/repository/user_repository.dart';
-import 'package:meditasyon_app/widgets/bottom_navigation.dart';
-import 'package:meditasyon_app/widgets/featuredlessons.dart';
-import 'package:meditasyon_app/widgets/last_lessons.dart';
-import 'package:meditasyon_app/widgets/tags.dart';
-import 'package:meditasyon_app/widgets/top_authors.dart';
-
-import '../widgets/stories.dart';
-import '../widgets/resume.dart';
+import 'package:meditasyon_app/screens/profile.dart';
+import 'package:meditasyon_app/screens/tabs/search.dart';
+import 'notifications.dart';
+import 'onboardscreen.dart';
+import 'tabs/home_tab.dart';
 
 class HomePage extends StatefulWidget {
   static const route = "/home";
@@ -20,63 +13,55 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HomePageModel data;
-  Future<HomePageModel> getData() async {
-    data = await HomagePageRepository.index();
-    setState(() {});
-    return data;
-  }
+  int _selectedIndex = 0;
 
-  @override
-  void initState() {
-    getData();
-    super.initState();
+  static List<Widget> _widgetOptions = <Widget>[
+    HomePageTab(),
+    Search(),
+    NotificationScreen(),
+    OnboardingMainPage(),
+    UserProfile()
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: data == null
-                    ? SpinKitDoubleBounce(
-                        size: 48,
-                        color: Colors.blue,
-                      )
-                    : Container(
-              padding: EdgeInsets.only(left: 8),
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Stories(data.stories), //TODO https://github.com/blackmann/story_view/issues/15 next-previous story olayı yapılacak
-                          Resume(null),
-                          FeaturedLessons(data.lastLessons),
-                          Tags(data.tags),
-                          LastLessons(data.topLessonsWeekly),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              "En iyi yayıncılar",
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                          //TopAuthors(data.bestAuthors),
-                          // RaisedButton(
-                          //   child: Text("LOGOUT"),
-                          //   onPressed: () async {
-                          //     if (await UserRepository.logout()) {
-                          //       Navigator.of(context).pushReplacementNamed("/");
-                          //     }
-                          //   },
-                          // )
-                        ],
-                      ),
-              ),
-            ),
-          ),
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
         ),
-        bottomNavigationBar: BottomNavigationWidget());
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
+            iconSize: 30,
+            unselectedItemColor: Colors.black,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.panorama_fish_eye),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add_box),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.mic),
+                title: Container(),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                title: Container(),
+              ),
+            ]));
   }
 }
