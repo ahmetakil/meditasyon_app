@@ -136,8 +136,8 @@ getData();
               child: ListView.builder(
                 itemCount: data.notifications.length+5, itemBuilder: (BuildContext context, int index) {
                   return  _acceptBuildItem(
-                    data.notifications[index % 2].createdAt.toString().replaceAll("00:00:00.000", ""),
-                    data.notifications[index % 2].message,
+                    data.notifications[index % data.notifications.length].createdAt.toString().replaceAll("00:00:00.000", ""), //veriyi çoğaltmak içim % kullanıldı
+                    data.notifications[index % data.notifications.length].message,
                     color[index % 5]
                   );
                 },

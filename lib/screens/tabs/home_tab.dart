@@ -62,7 +62,7 @@ class _HomePageTabState extends State<HomePageTab> {
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                           ),
-                          //TopAuthors(data.bestAuthors),
+                          TopAuthors(data.bestAuthors),
                           // RaisedButton(
                           //   child: Text("LOGOUT"),
                           //   onPressed: () async {
