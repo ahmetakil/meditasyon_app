@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:meditasyon_app/models/notification.dart';
+import 'package:meditasyon_app/models/notification.dart' as prefix0;
+import 'package:meditasyon_app/repository/notifications_repository.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -6,11 +10,79 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  List<LinearGradient> color = [
+    LinearGradient(
+        colors: [
+          const Color(0xFFFF5B9D),
+          const Color(0xFFFFAD69),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+    LinearGradient(
+        colors: [
+          const Color(0xFF17E6E2),
+          const Color(0xFFC58BFD),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+    
+    LinearGradient(
+        colors: [
+          const Color(0xFFA65BF9),
+          const Color(0xFF5552FE),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+        LinearGradient(
+        colors: [
+          const Color(0xFF58E09E),
+          const Color(0xFFBEE772),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+    LinearGradient(
+        colors: [
+          const Color(0xFFA65BF9),
+          const Color(0xFF5552FE),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+  ];
+
+
+  
+  NotificationModel data;
+  Future<NotificationModel> getData() async {
+    data = await NotificationRepository.index();
+    setState(() {});
+    return data;
+  }
+
+  @override
+  void initState() {
+getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          body: Column(
+          body: data == null
+                    ? SpinKitDoubleBounce(
+                        size: 48,
+                        color: Colors.blue,
+                      )
+                    :  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
@@ -61,25 +133,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.only(top: 20.0),
-              child: ListView(
-                children: <Widget>[
-                  _acceptBuildItem(
-                    "19:34 PM",
-                    "Gönderdiğin ses onaylandı",
-                    "Merhaba firuzan Akşam hanım ben Muhammed gönderdiğiniz  ses oyaylandı ve şu anda yayında bize şu numaradan 0542 788 88 95 ulaşın ve konuşalım veya şu mailden yazın  mmskre@gmail.com",
-                  ),
-                  _followBuildItem(
-                    "19:34 PM",
-                    "Bu gün sen tam 20 kişi takip etti",
-                    "Merhaba firuzan Akşam hanım ben Muhammed gönderdiğiniz  ses oyaylandı ve şu anda yayında bize şu numaradan 0542 788 88 95 ulaşın ve konuşalım veya şu mailden yazın  mmskre@gmail.com",
-                  ),
-                  _viewersBuildItem("16:34 AM","Merhaba firuzan Akşam hanım ", "Anıl"),
-                  
-                  _billingBuildItem("19:34 PM","Düşünce silme", "Anıl"),
-                  _acceptBuildItem("19:34 PM", "Düşünce silme", "Anıl"),
-                  _billingBuildItem("19:34 PM","Düşünce silme", "Anıl"),
-                  _viewersBuildItem("19:34 PM","Düşünce silme", "Anıl"),
-                ],
+              child: ListView.builder(
+                itemCount: data.notifications.length+5, itemBuilder: (BuildContext context, int index) {
+                  return  _acceptBuildItem(
+                    data.notifications[index % 2].createdAt.toString().replaceAll("00:00:00.000", ""),
+                    data.notifications[index % 2].message,
+                    color[index % 5]
+                  );
+                },
               ),
             ),
           ),
@@ -88,7 +149,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _acceptBuildItem(time, title, subtitle) {
+  Widget _acceptBuildItem(time, title,LinearGradient color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -96,15 +157,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
           decoration: BoxDecoration(
-              gradient: new LinearGradient(
-                  colors: [
-                    const Color(0xFFFF5B9D),
-                    const Color(0xFFFFAD69),
-                  ],
-                  begin: const FractionalOffset(0.0, 0.0),
-                  end: const FractionalOffset(1.0, 0.0),
-                  stops: [0.0, 1.0],
-                  tileMode: TileMode.clamp),
+              gradient: color,
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
           height: 120.0,
           child: Container(
@@ -121,8 +174,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     title,
                     style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
-                  Text(subtitle,
-                      style: TextStyle(color: Colors.white, fontSize: 12))
+                  // Text(subtitle,
+                  //     style: TextStyle(color: Colors.white, fontSize: 12))
                 ],
               )),
         ),
@@ -169,15 +222,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     child: Stack(
                       children: <Widget>[
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                       ],
@@ -190,7 +243,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _viewersBuildItem(time,title, subtitle) {
+  Widget _viewersBuildItem(time, title, subtitle) {
     double pos = 0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,7 +263,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   tileMode: TileMode.clamp),
               borderRadius: BorderRadius.all(Radius.circular(8.0))),
           height: 120.0,
-          child:  Container(
+          child: Container(
               padding: EdgeInsets.only(left: 16.0, right: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,15 +282,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     child: Stack(
                       children: <Widget>[
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                       ],
@@ -250,7 +303,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _billingBuildItem(time,title, subtitle) {
+  Widget _billingBuildItem(time, title, subtitle) {
     double pos = 0;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,15 +342,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     child: Stack(
                       children: <Widget>[
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                         Positioned(
-                          left: pos = pos+12,
+                          left: pos = pos + 12,
                           child: FlutterLogo(),
                         ),
                       ],

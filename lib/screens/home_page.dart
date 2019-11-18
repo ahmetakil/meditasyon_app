@@ -1,9 +1,12 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/screens/profile.dart';
 import 'package:meditasyon_app/screens/tabs/search.dart';
+import 'package:meditasyon_app/utils/color.dart';
 import 'notifications.dart';
 import 'onboardscreen.dart';
 import 'tabs/home_tab.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class HomePage extends StatefulWidget {
   static const route = "/home";
@@ -35,33 +38,44 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
-            iconSize: 30,
-            unselectedItemColor: Colors.black,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.panorama_fish_eye),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.add_box),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.mic),
-                title: Container(),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                title: Container(),
-              ),
-            ]));
+        bottomNavigationBar: BottomNavyBar(
+   selectedIndex: _selectedIndex,
+   showElevation: true, // use this to remove appBar's elevation
+   onItemSelected: (index) => setState(() {
+              _selectedIndex = index;
+           
+    }),
+   items: [
+     BottomNavyBarItem(
+       icon: Icon(Ionicons.ios_disc),
+       title: Text('Home'),
+       activeColor: mainColor,
+       inactiveColor:inactiveColor
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Ionicons.ios_search),
+         title: Text('Search'),
+         activeColor: mainColor,
+         inactiveColor:inactiveColor
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Ionicons.ios_add_circle_outline),
+         title: Text('Add Audio'),
+         activeColor: mainColor,
+         inactiveColor:inactiveColor
+     ),
+     BottomNavyBarItem(
+         icon: Icon(Ionicons.ios_mic),
+         title: Text('Microphone'),
+         activeColor: Colors.blue,
+         inactiveColor:inactiveColor
+     ), BottomNavyBarItem(
+         icon: Icon(Ionicons.ios_contact),
+         title: Text('Profil'),
+         activeColor: Colors.blue,
+         inactiveColor:inactiveColor
+     ),
+   ],
+));
   }
 }
