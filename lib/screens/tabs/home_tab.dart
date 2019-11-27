@@ -19,8 +19,9 @@ class HomePageTab extends StatefulWidget {
   _HomePageTabState createState() => _HomePageTabState();
 }
 
-class _HomePageTabState extends State<HomePageTab> {
+class _HomePageTabState extends State<HomePageTab>  with AutomaticKeepAliveClientMixin  {
   HomePageModel data;
+  
   Future<HomePageModel> getData() async {
     data = await HomagePageRepository.index();
     setState(() {});
@@ -46,37 +47,43 @@ class _HomePageTabState extends State<HomePageTab> {
                     : Container(
               padding: EdgeInsets.only(left: 8),
               width: double.infinity,
-              child: SingleChildScrollView(
-                child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Stories(data.stories), //TODO https://github.com/blackmann/story_view/issues/15 next-previous story olayı yapılacak
-                          Resume(null),
-                          FeaturedLessons(data.lastLessons),
-                          Tags(data.tags),
-                          LastLessons(data.topLessonsWeekly),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              "En iyi yayıncılar",
-                              style: TextStyle(fontWeight: FontWeight.w600),
+              child: Container(
+                child: SingleChildScrollView(
+                  child:  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Stories(data.stories), //TODO https://github.com/blackmann/story_view/issues/15 next-previous story olayı yapılacak
+                            Resume(null),
+                            FeaturedLessons(data.lastLessons),
+                            Tags(data.tags),
+                            LastLessons(data.topLessonsWeekly),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                "En iyi yayıncılar",
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
                             ),
-                          ),
-                          TopAuthors(data.bestAuthors),
-                          // RaisedButton(
-                          //   child: Text("LOGOUT"),
-                          //   onPressed: () async {
-                          //     if (await UserRepository.logout()) {
-                          //       Navigator.of(context).pushReplacementNamed("/");
-                          //     }
-                          //   },
-                          // )
-                        ],
-                      ),
+                            TopAuthors(data.bestAuthors),
+                            // RaisedButton(
+                            //   child: Text("LOGOUT"),
+                            //   onPressed: () async {
+                            //     if (await UserRepository.logout()) {
+                            //       Navigator.of(context).pushReplacementNamed("/");
+                            //     }
+                            //   },
+                            // )
+                          ],
+                        ),
+                ),
               ),
             ),
           ),
         ),
        );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
