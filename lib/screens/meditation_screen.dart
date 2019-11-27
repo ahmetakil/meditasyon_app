@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/models/sounds_list_model.dart';
 import 'package:meditasyon_app/providers/lesson_provider.dart';
+import 'package:meditasyon_app/repository/sound_list_repository.dart';
 import 'package:meditasyon_app/screens/player.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -18,11 +20,7 @@ class MeditationScreen extends StatefulWidget {
 }
 
 class _MeditationScreenState extends State<MeditationScreen> {
-
-
-  
-
-
+  int lessonId;
   BorderRadiusGeometry radius = BorderRadius.only(
     topLeft: Radius.circular(24.0),
     topRight: Radius.circular(24.0),
@@ -31,59 +29,99 @@ class _MeditationScreenState extends State<MeditationScreen> {
   PanelController slidingUpController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  // Future getSoundList() async {
+
+  //   print("IDDDDD" + lessonId.toString());
+  //   data = await SoundListRepository.getSounds("18");
+
+  //   print(data.sounds[0].name);
+  // }
+
+  @override
+  void didChangeDependencies() {
+    // getSoundList();
+    lessonId = ModalRoute.of(context).settings.arguments;
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final LessonProvider lessonProvider = Provider.of<LessonProvider>(context);
-
-    var size = MediaQuery.of(context).size;
-    Meditasyon example = Meditasyon(
-      id: DateTime.now().toIso8601String(),
-      name: "Nefes Meditasyonu",
-      path:
-          "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3",
-      progress: 100,
-      isDownloaded: false,
-      totalDuration: Duration(minutes: 3, seconds: 55),
-    );
-    /*24 is for notification bar on Android*/
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
-    final double itemWidth = size.width / 2;
-
-    return ChangeNotifierProvider.value(
-      value: LessonProvider(),
-      child: SafeArea(
-        child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: Colors.white,
-          body: SlidingUpPanel(
-            controller: slidingUpController,
-            maxHeight: MediaQuery.of(context).size.height,
-            minHeight: 70,
-            renderPanelSheet: false,
-            panel: AudioPlayerPage(),
-            collapsed: CollapsedPlayer(radius),
-            borderRadius: radius,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: Colors.blue,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        backgroundColor: Colors.white,
+        body: SlidingUpPanel(
+          controller: slidingUpController,
+          maxHeight: MediaQuery.of(context).size.height,
+          minHeight: 70,
+          renderPanelSheet: false,
+          panel: AudioPlayerPage(),
+          collapsed: CollapsedPlayer(radius),
+          borderRadius: radius,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.blue,
                 ),
-                ProgressBar(LessonProvider.lessons[0].progress),
-                ...LessonProvider.lessons[0].content
-                    .map((Meditasyon m) => MeditationTile(m))
-                    .toList()
-              ],
-            ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FutureBuilder<SoundListModel>(
+                future: SoundListRepository.getSounds(lessonId.toString()),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData) {
+                    // return ProgressBar(snapshot.data.progress) //Progress eklenecek
+                    return ProgressBar(25);
+                  } else {
+                    return Text("");
+                  }
+                },
+              ),
+              FutureBuilder<SoundListModel>(
+                future: SoundListRepository.getSounds(lessonId.toString()),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData) {
+                    return Expanded(child: _buildListView(snapshot.data));
+                  } else {
+                    return Text("");
+                  }
+                },
+              )
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  _buildListView(SoundListModel data) {
+    return ListView.builder(
+      itemCount: data.sounds.length,
+      itemBuilder: (BuildContext context, int index) {
+        Sounds currentModel = data.sounds[index];
+        return MeditationTile(new Meditasyon(
+            author: "Ahmet ",
+            id: currentModel.id.toString(),
+            isDownloaded: false,
+            name: currentModel.name + " Rahatla" + index.toString(),
+            path: BASE_MEDIA_URL + currentModel.url,
+            progress: 5,
+            state: MeditasyonState.WAITING,
+            totalDuration: Duration(minutes: 4)));
+      },
     );
   }
 }
@@ -170,7 +208,7 @@ class CollapsedPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<MapEntry<MeditasyonState,Meditasyon>>(
+    return StreamBuilder<MapEntry<MeditasyonState, Meditasyon>>(
         stream: musicService.playerState,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
@@ -207,7 +245,9 @@ class CollapsedPlayer extends StatelessWidget {
                     }
                   },
                   icon: Icon(
-                    state == MeditasyonState.PLAYING ? Icons.pause : Icons.play_arrow ,
+                    state == MeditasyonState.PLAYING
+                        ? Icons.pause
+                        : Icons.play_arrow,
                     color: Colors.white,
                     size: 32,
                   ),
@@ -217,7 +257,7 @@ class CollapsedPlayer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      currentMeditasyon.name??"<>",
+                      currentMeditasyon.name ?? "<>",
                       style: TextStyle(color: Colors.white),
                     ),
                     Text(currentMeditasyon.author,

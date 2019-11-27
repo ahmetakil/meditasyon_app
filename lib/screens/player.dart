@@ -244,40 +244,42 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                     ),
                   ],
                 ),
-                Align(
-                    alignment: Alignment.bottomLeft,
-                    child: GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext bc) {
-                            return buildBottomSheet();
-                          },
-                        );
-                      },
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            width: 72,
-                            height: 72,
-                            child: QuarterCircle(
-                              circleAlignment: CircleAlignment.bottomLeft,
+                Flexible(
+                                  child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext bc) {
+                              return buildBottomSheet();
+                            },
+                          );
+                        },
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              width: 72,
+                              height: 72,
+                              child: QuarterCircle(
+                                circleAlignment: CircleAlignment.bottomLeft,
+                              ),
                             ),
-                          ),
-                          Positioned(
-                              bottom: 12,
-                              left: 12,
-                              child: Container(
-                                width: 32,
-                                height: 32,
-                                child: CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/backmusicexample.png'),
-                                ),
-                              ))
-                        ],
-                      ),
-                    )),
+                            Positioned(
+                                bottom: 12,
+                                left: 12,
+                                child: Container(
+                                  width: 32,
+                                  height: 32,
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        'assets/images/backmusicexample.png'),
+                                  ),
+                                ))
+                          ],
+                        ),
+                      )),
+                ),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             );

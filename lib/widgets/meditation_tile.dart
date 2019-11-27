@@ -10,6 +10,7 @@ import '../utils/utils.dart';
 class MeditationTile extends StatelessWidget {
   Meditasyon meditasyon;
 
+  
   MeditationTile(this.meditasyon);
 
   @override

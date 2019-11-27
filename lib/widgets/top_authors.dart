@@ -18,7 +18,7 @@ class _TopAuthorsState extends State<TopAuthors> {
       height: 64.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: widget.data.length,
+        itemCount: widget.data.length-2, //TODO unutma
         itemBuilder: (BuildContext context, int index) {
           return _buildItem(widget.data[index].profilePicture,widget.data[index].name);
         },
