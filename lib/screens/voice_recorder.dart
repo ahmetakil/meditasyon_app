@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io' as io;
 import 'dart:math';
 
@@ -15,8 +16,37 @@ class VoiceRecorderScreen extends StatefulWidget {
 }
 
 class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
-  String _animationName = "record";
-  String _animationNameVoice = "Record2";
+  String _animationName = "";
+  String _animationNameVoice = "";
+Timer _timer;
+int _start = 0;
+String desc= "Merhaba bugün nasılsın olduğun yere uzan ve gözlerini kapat şimdi meditasyonumuza başlayabiliriz.";
+String desc1= "Tüm vücudunu bir ormanın parçası olarak düşün sanki bir ağaç veya bitki gibi ve kendini toprağın şefkatine bırak";
+
+void startTimer() {
+  const oneSec = const Duration(seconds: 1);
+  _timer = new Timer.periodic(
+    oneSec,
+    (Timer timer) => setState(
+      () {
+        if (_start > 5) {
+            setState(() {
+              desc = desc1;
+            });
+          timer.cancel();
+        } else {
+          _start = _start + 1;
+        }
+      },
+    ),
+  );
+}
+
+@override
+void dispose() {
+  _timer.cancel();
+  super.dispose();
+}
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,10 +64,36 @@ class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
             ),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(top: 64, left: 48, right: 48),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("Tavsiyeler",
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                        "$desc",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              ),
+        //       RaisedButton(
+        //   onPressed: () {
+        //     startTimer();
+        //   },
+        //   child: Text("start"),
+        // ),
+       
               Expanded(
                 child: FlareCacheBuilder(
                   ["assets/record.flr"],
@@ -47,7 +103,9 @@ class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
                         width: 220,
                         child: !isWarm
                             ? Container(child: Text("NO"))
-                            : FlareActor(
+                            : 
+                            FlareActor(
+                              
                                 "assets/record.flr",
                                 alignment: Alignment.center,
                                 fit: BoxFit.contain,
@@ -57,7 +115,25 @@ class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
                     );
                   },
                 ),
-              ) , Expanded(
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 48, right: 48),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Text("$_start saniye",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w600)),
+                    SizedBox(
+                      height: 4,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
                 child: FlareCacheBuilder(
                   ["assets/voice.flr"],
                   builder: (BuildContext context, bool isWarm) {
@@ -66,17 +142,26 @@ class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
                         width: 110,
                         child: !isWarm
                             ? Container(child: Text("NO"))
-                            : FlareActor(
+                            : 
+                            
+                            GestureDetector(child:FlareActor(
                                 "assets/voice.flr",
                                 alignment: Alignment.center,
                                 fit: BoxFit.contain,
                                 animation: _animationNameVoice,
-                              ),
+                              ),onTap: (){
+                                setState(() {
+                                  startTimer();
+                                  _animationNameVoice = "Record2";
+                                  _animationName = "record";
+                                });
+                              } )
+                            
                       ),
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),
