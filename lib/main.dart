@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/screens/lessons_tag.dart';
 import 'package:meditasyon_app/screens/notifications.dart';
 import 'package:meditasyon_app/screens/onboardscreen.dart';
 import 'package:meditasyon_app/screens/profile.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
            '/': (_) => HomePage(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
+          LessonsTag.route: (_) => LessonsTag(),
          // AudioPlayerPage.route: (_) => AudioPlayerPage(),
         },
       ),

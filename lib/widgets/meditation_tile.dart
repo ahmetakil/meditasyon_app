@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meditasyon_app/services/music_service.dart';
 
 import './playing_slider.dart';
@@ -25,7 +26,10 @@ class MeditationTile extends StatelessWidget {
             builder: (context, snapshot) {
 
               if (!snapshot.hasData) {
-                return CircularProgressIndicator();
+                return SpinKitDoubleBounce(
+                  size: 48,
+                  color: Colors.blue,
+                );
               }
 
               final MeditasyonState _state = snapshot.data.key??MeditasyonState.WAITING;

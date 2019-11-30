@@ -70,6 +70,8 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                   builder: (context, anim) {
                     return ClipRRect(
                       borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
                           bottomLeft: Radius.circular(w / 2),
                           bottomRight: Radius.circular(w / 2)),
                       child: Container(
@@ -77,7 +79,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                           fit: StackFit.expand,
                           children: <Widget>[
                             Image.network(
-                                'https://www.onlygfx.com/wp-content/uploads/2017/03/blue-burst-abstract-bg.png',
+                                'https://images.pexels.com/photos/810775/pexels-photo-810775.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
                                 fit: BoxFit.cover),
                             Positioned(
                                 left: 8,

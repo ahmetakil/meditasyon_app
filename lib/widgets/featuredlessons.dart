@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meditasyon_app/models/home_page_model.dart';
 import 'package:meditasyon_app/screens/meditation_screen.dart';
 
@@ -53,7 +54,10 @@ class _FeaturedLessonsState extends State<FeaturedLessons> {
                             ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
                   ),
                 ),
-                placeholder: (context, url) => CircularProgressIndicator(),
+                placeholder: (context, url) => SpinKitDoubleBounce(
+                  size: 48,
+                  color: Colors.blue,
+                ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
