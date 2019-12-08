@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/screens/profile.dart';
 import 'package:meditasyon_app/screens/tabs/search.dart';
+import 'package:meditasyon_app/screens/voice_recorder.dart';
 import 'package:meditasyon_app/utils/color.dart';
 import 'notifications.dart';
 import 'onboardscreen.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage>  with AutomaticKeepAliveClientMixin
     HomePageTab(),
     Search(),
     NotificationScreen(),
-    OnboardingMainPage(),
+    VoiceRecorderScreen(),
     UserProfile()
   ];
 

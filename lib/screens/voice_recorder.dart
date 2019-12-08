@@ -102,7 +102,7 @@ void dispose() {
                       child: Container(
                         width: 220,
                         child: !isWarm
-                            ? Container(child: Text("NO"))
+                            ? Container(child: Text(""))
                             : 
                             FlareActor(
                               
@@ -141,7 +141,7 @@ void dispose() {
                       child: Container(
                         width: 110,
                         child: !isWarm
-                            ? Container(child: Text("NO"))
+                            ? Container(child: Text(""))
                             : 
                             
                             GestureDetector(child:FlareActor(
