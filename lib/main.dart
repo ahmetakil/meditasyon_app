@@ -31,11 +31,11 @@ class MyApp extends StatelessWidget {
         title: "Meditasyon",
         routes: {
           // '/': (_) => AuthScreen(),
-           '/': (_) => AuthScreen(),
+           '/': (_) => HomePage(),
           HomePage.route: (_) => HomePage(),
           MeditationScreen.route: (_) => MeditationScreen(),
           LessonsTag.route: (_) => LessonsTag(),
-          AudioPlayerPage.route: (_) => AudioPlayerPage(),
+         // AudioPlayerPage.route: (_) => AudioPlayerPage(),
         },
       ),
     );

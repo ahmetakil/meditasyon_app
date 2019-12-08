@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class OutlineButtonWidget extends StatelessWidget {
+
+  static int initIndex=1;
+
+  int index;
   String title;
   double width;
-  OutlineButtonWidget(this.title,this.width);
+
+  OutlineButtonWidget(this.title,this.width,this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +16,9 @@ class OutlineButtonWidget extends StatelessWidget {
       height: 28.0,
       width: width,
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          initIndex = index;
+        },
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
