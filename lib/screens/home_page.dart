@@ -1,5 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/screens/add_sound_screen.dart';
 import 'package:meditasyon_app/screens/profile.dart';
 import 'package:meditasyon_app/screens/tabs/search.dart';
 import 'package:meditasyon_app/screens/voice_recorder.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage>  with AutomaticKeepAliveClientMixin
   static List<Widget> _widgetOptions = <Widget>[
     HomePageTab(),
     Search(),
-    NotificationScreen(),
+    AddSoundScreen(),
     VoiceRecorderScreen(),
     UserProfile()
   ];
