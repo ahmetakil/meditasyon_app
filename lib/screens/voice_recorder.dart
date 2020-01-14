@@ -18,35 +18,38 @@ class VoiceRecorderScreen extends StatefulWidget {
 class _VoiceRecorderScreenState extends State<VoiceRecorderScreen> {
   String _animationName = "";
   String _animationNameVoice = "";
-Timer _timer;
-int _start = 0;
-String desc= "Merhaba bugün nasılsın olduğun yere uzan ve gözlerini kapat şimdi meditasyonumuza başlayabiliriz.";
-String desc1= "Tüm vücudunu bir ormanın parçası olarak düşün sanki bir ağaç veya bitki gibi ve kendini toprağın şefkatine bırak";
+  Timer _timer;
+  int _start = 0;
+  String desc =
+      "Merhaba bugün nasılsın olduğun yere uzan ve gözlerini kapat şimdi meditasyonumuza başlayabiliriz.";
+  String desc1 =
+      "Tüm vücudunu bir ormanın parçası olarak düşün sanki bir ağaç veya bitki gibi ve kendini toprağın şefkatine bırak";
 
-void startTimer() {
-  const oneSec = const Duration(seconds: 1);
-  _timer = new Timer.periodic(
-    oneSec,
-    (Timer timer) => setState(
-      () {
-        if (_start > 5) {
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (_start > 5) {
             setState(() {
               desc = desc1;
             });
-          timer.cancel();
-        } else {
-          _start = _start + 1;
-        }
-      },
-    ),
-  );
-}
+            timer.cancel();
+          } else {
+            _start = _start + 1;
+          }
+        },
+      ),
+    );
+  }
 
-@override
-void dispose() {
-  _timer.cancel();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -79,8 +82,7 @@ void dispose() {
                     SizedBox(
                       height: 4,
                     ),
-                    Text(
-                        "$desc",
+                    Text("$desc",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -88,13 +90,13 @@ void dispose() {
                   ],
                 ),
               ),
-        //       RaisedButton(
-        //   onPressed: () {
-        //     startTimer();
-        //   },
-        //   child: Text("start"),
-        // ),
-       
+              //       RaisedButton(
+              //   onPressed: () {
+              //     startTimer();
+              //   },
+              //   child: Text("start"),
+              // ),
+
               Expanded(
                 child: FlareCacheBuilder(
                   ["assets/record.flr"],
@@ -104,9 +106,7 @@ void dispose() {
                         width: 220,
                         child: !isWarm
                             ? Container(child: Text(""))
-                            : 
-                            FlareActor(
-                              
+                            : FlareActor(
                                 "assets/record.flr",
                                 alignment: Alignment.center,
                                 fit: BoxFit.contain,
@@ -140,25 +140,23 @@ void dispose() {
                   builder: (BuildContext context, bool isWarm) {
                     return Center(
                       child: Container(
-                        width: 110,
-                        child: !isWarm
-                            ? Container(child: Text(""))
-                            : 
-                            
-                            GestureDetector(child:FlareActor(
-                                "assets/voice.flr",
-                                alignment: Alignment.center,
-                                fit: BoxFit.contain,
-                                animation: _animationNameVoice,
-                              ),onTap: (){
-                                setState(() {
-                                  startTimer();
-                                  _animationNameVoice = "Record2";
-                                  _animationName = "record";
-                                });
-                              } )
-                            
-                      ),
+                          width: 110,
+                          child: !isWarm
+                              ? Container(child: Text(""))
+                              : GestureDetector(
+                                  child: FlareActor(
+                                    "assets/voice.flr",
+                                    alignment: Alignment.center,
+                                    fit: BoxFit.contain,
+                                    animation: _animationNameVoice,
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      startTimer();
+                                      _animationNameVoice = "Record2";
+                                      _animationName = "record";
+                                    });
+                                  })),
                     );
                   },
                 ),

@@ -22,7 +22,7 @@ class DotsIndicator extends AnimatedWidget {
   /// The color of the dots.
   ///
   /// Defaults to `Colors.white`.
-   Color color;
+  Color color;
 
   // The base size of the dots
   static const double _kDotSize = 8.0;
@@ -41,7 +41,8 @@ class DotsIndicator extends AnimatedWidget {
       ),
     );
     double zoom = 1.0 + (_kMaxZoom - 1.0) * selectedness;
-    this.color = index == controller.page ? Color(0xFF8B2BE5) : Color(0xFF6C63FF);
+    this.color =
+        index == controller.page ? Color(0xFF8B2BE5) : Color(0xFF6C63FF);
     return new Container(
       width: _kDotSpacing,
       child: new Center(

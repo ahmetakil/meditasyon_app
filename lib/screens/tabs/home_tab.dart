@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meditasyon_app/models/home_page_model.dart';
 import 'package:meditasyon_app/models/lesson_model.dart';
-import 'package:meditasyon_app/models/lessons_from_tag_model.dart';
 import 'package:meditasyon_app/repository/homepage_repository.dart';
-import 'package:meditasyon_app/repository/lessons_repository.dart';
-import 'package:meditasyon_app/repository/user_repository.dart';
-import 'package:meditasyon_app/widgets/bottom_navigation.dart';
 import 'package:meditasyon_app/widgets/featuredlessons.dart';
 import 'package:meditasyon_app/widgets/last_lessons.dart';
 import 'package:meditasyon_app/widgets/tags.dart';
 import 'package:meditasyon_app/widgets/top_authors.dart';
 
-import '../../widgets/stories.dart';
 import '../../widgets/resume.dart';
+import '../../widgets/stories.dart';
 
 class HomePageTab extends StatefulWidget {
   static const route = "/home";
@@ -29,9 +25,6 @@ class _HomePageTabState extends State<HomePageTab>
   Future<HomePageModel> getData() async {
     data = await HomagePageRepository.index();
     setState(() {});
-    LessonModelTag data2 =
-        await LessonsRepository.getLessonsFromTag(1.toString());
-
     return data;
   }
 

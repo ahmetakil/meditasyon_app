@@ -14,7 +14,8 @@ class LessonProvider with ChangeNotifier {
           Meditasyon(
             id: DateTime.now().toIso8601String(),
             name: "Nefes Meditasyonu",
-            path: "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3",
+            path:
+                "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3",
             progress: 100,
             isDownloaded: false,
             totalDuration: Duration(seconds: 27),
@@ -23,9 +24,10 @@ class LessonProvider with ChangeNotifier {
             id: DateTime.now().toIso8601String(),
             name: "Düşüncelerini sil",
             progress: 2,
-            path: "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3",
+            path:
+                "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3",
             isDownloaded: false,
-            totalDuration: Duration(seconds:12,minutes: 2),
+            totalDuration: Duration(seconds: 12, minutes: 2),
           ),
           Meditasyon(
             id: DateTime.now().toIso8601String(),

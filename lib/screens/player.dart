@@ -9,7 +9,6 @@ import '../services/music_service.dart';
 import '../utils/utils.dart';
 
 class AudioPlayerPage extends StatefulWidget {
-
   static const route = "/player";
 
   @override
@@ -24,7 +23,6 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
 
   final musicService = locator<MusicService>();
 
-
   @override
   void initState() {
     super.initState();
@@ -32,8 +30,8 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
       vsync: this,
       duration: Duration(milliseconds: 1000),
     );
-    animation = Tween<double>(begin: startingHeight, end: 425)
-        .animate(_controller);
+    animation =
+        Tween<double>(begin: startingHeight, end: 425).animate(_controller);
     _controller.forward(from: 0.0);
   }
 
@@ -57,10 +55,11 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
               AsyncSnapshot<
                       MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>
                   snapshot) {
-            if(!snapshot.hasData){
+            if (!snapshot.hasData) {
               return Container();
             }
-            final Duration _currentDuration = snapshot.data.key??Duration(seconds: 1);
+            final Duration _currentDuration =
+                snapshot.data.key ?? Duration(seconds: 1);
             final MeditasyonState _state = snapshot.data.value.key;
             final Meditasyon _current = snapshot.data.value.value;
 
@@ -215,10 +214,10 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                             onPressed: () {
                               switch (_state) {
                                 case MeditasyonState.PLAYING:
-                                    musicService.pauseMusic(_current);
+                                  musicService.pauseMusic(_current);
                                   break;
                                 case MeditasyonState.PAUSED:
-                                    musicService.playMusic(_current);
+                                  musicService.playMusic(_current);
                                   break;
                                 default:
                                   break;
@@ -247,7 +246,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
                   ],
                 ),
                 Flexible(
-                                  child: Align(
+                  child: Align(
                       alignment: Alignment.bottomLeft,
                       child: GestureDetector(
                         onTap: () {

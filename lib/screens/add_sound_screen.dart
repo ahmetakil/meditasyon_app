@@ -9,23 +9,27 @@ class AddSoundScreen extends StatefulWidget {
   _AddSoundScreenState createState() => _AddSoundScreenState();
 }
 
-class _AddSoundScreenState extends State<AddSoundScreen> with TickerProviderStateMixin {
+class _AddSoundScreenState extends State<AddSoundScreen>
+    with TickerProviderStateMixin {
   ScrollController scrollController;
   bool dialVisible = true;
+
   void setDialVisible(bool value) {
     setState(() {
       dialVisible = value;
     });
   }
+
   @override
   void initState() {
     scrollController = ScrollController()
       ..addListener(() {
         setDialVisible(scrollController.position.userScrollDirection ==
             ScrollDirection.forward);
-      });// TODO: implement initState
+      }); // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -272,46 +276,47 @@ class _AddSoundScreenState extends State<AddSoundScreen> with TickerProviderStat
 
   Widget buildFloatingButton() {
     return SpeedDial(
-        // both default to 16
-        marginRight: 18,
-        marginBottom: 20,
-        animatedIcon: AnimatedIcons.menu_close,
-        animatedIconTheme: IconThemeData(size: 22.0,color: Colors.white),
-        // this is ignored if animatedIcon is non null
-        // child: Icon(Icons.add),
-        visible: dialVisible,
-        // If true user is forced to close dial manually
-        // by tapping main button and overlay is not rendered.
-        closeManually: false,
-        curve: Curves.bounceIn,
-        overlayColor: Colors.transparent,
-        overlayOpacity: 0.2,
-        onOpen: () => print('OPENING DIAL'),
-        onClose: () => print('DIAL CLOSED'),
-        tooltip: 'Speed Dial',
-        heroTag: 'speed-dial-hero-tag',
-        backgroundColor: prefix0.mainColor,
-        foregroundColor: Colors.white,
-        elevation: 8.0,
-        shape: CircleBorder(),
-        children: [
-          SpeedDialChild(
-              child: Icon(Icons.add,color: prefix0.mainColor,),
-              backgroundColor: Colors.white,
-              label: 'Ses ekle',
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () => print('FIRST CHILD')
-          ),
-          SpeedDialChild(
-            child: Icon(Icons.mic_none),
-            backgroundColor:prefix0.mainColor,
-            label: 'Mikrofon',
+      // both default to 16
+      marginRight: 18,
+      marginBottom: 20,
+      animatedIcon: AnimatedIcons.menu_close,
+      animatedIconTheme: IconThemeData(size: 22.0, color: Colors.white),
+      // this is ignored if animatedIcon is non null
+      // child: Icon(Icons.add),
+      visible: dialVisible,
+      // If true user is forced to close dial manually
+      // by tapping main button and overlay is not rendered.
+      closeManually: false,
+      curve: Curves.bounceIn,
+      overlayColor: Colors.transparent,
+      overlayOpacity: 0.2,
+      onOpen: () => print('OPENING DIAL'),
+      onClose: () => print('DIAL CLOSED'),
+      tooltip: 'Speed Dial',
+      heroTag: 'speed-dial-hero-tag',
+      backgroundColor: prefix0.mainColor,
+      foregroundColor: Colors.white,
+      elevation: 8.0,
+      shape: CircleBorder(),
+      children: [
+        SpeedDialChild(
+            child: Icon(
+              Icons.add,
+              color: prefix0.mainColor,
+            ),
+            backgroundColor: Colors.white,
+            label: 'Ses ekle',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () => print('SECOND CHILD'),
-          ),
-
-        ],
-      );
+            onTap: () => print('FIRST CHILD')),
+        SpeedDialChild(
+          child: Icon(Icons.mic_none),
+          backgroundColor: prefix0.mainColor,
+          label: 'Mikrofon',
+          labelStyle: TextStyle(fontSize: 18.0),
+          onTap: () => print('SECOND CHILD'),
+        ),
+      ],
+    );
   }
 
   Widget buildSoundItem() {

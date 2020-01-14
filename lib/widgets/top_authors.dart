@@ -21,8 +21,8 @@ class _TopAuthorsState extends State<TopAuthors> {
         scrollDirection: Axis.horizontal,
         itemCount: widget.data.length,
         itemBuilder: (BuildContext context, int index) {
-          if(widget.data[index].profilePicture == null){
-           return Container();
+          if (widget.data[index].profilePicture == null) {
+            return Container();
           }
           return _buildItem(
               widget.data[index].profilePicture, widget.data[index].name);
@@ -45,7 +45,7 @@ class _TopAuthorsState extends State<TopAuthors> {
           ),
         )),
         Container(
-          alignment: Alignment.center,
+            alignment: Alignment.center,
             child: Text(
               name,
               textAlign: TextAlign.center,

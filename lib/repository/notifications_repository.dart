@@ -13,7 +13,6 @@ class NotificationRepository {
     final res =
         await http.post(url, headers: {'Authorization': 'Bearer $apiKey'});
     print(res.body);
-
     final data = jsonDecode(res.body);
     final dataModel = NotificationModel.fromJson(data);
     return dataModel;

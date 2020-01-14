@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meditasyon_app/models/lesson_model.dart';
 import 'package:meditasyon_app/models/profileDatasModel.dart';
 import 'package:meditasyon_app/repository/profile_repository.dart';
 import 'package:meditasyon_app/utils/utils.dart';
@@ -132,9 +131,8 @@ class _UserProfileState extends State<UserProfile>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    height:28,
+                    height: 28,
                     margin: EdgeInsets.only(left: 1),
-
                     child: new OutlineButton(
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
@@ -145,7 +143,9 @@ class _UserProfileState extends State<UserProfile>
                       textColor: Colors.blue,
                       child: Text('Bitirdiklerim'),
                       borderSide: BorderSide(
-                          color: Colors.blue, style: BorderStyle.solid, width: 1),
+                          color: Colors.blue,
+                          style: BorderStyle.solid,
+                          width: 1),
                       onPressed: () {
                         setState(() {
                           selectedIndex = [true, false, false];
@@ -154,7 +154,7 @@ class _UserProfileState extends State<UserProfile>
                     ),
                   ),
                   Container(
-                    height:28,
+                    height: 28,
                     child: new OutlineButton(
                       shape: RoundedRectangleBorder(
                           side: BorderSide(
@@ -165,7 +165,9 @@ class _UserProfileState extends State<UserProfile>
                       textColor: Colors.blue,
                       child: Text('Favorilerim'),
                       borderSide: BorderSide(
-                          color: Colors.blue, style: BorderStyle.solid, width: 1),
+                          color: Colors.blue,
+                          style: BorderStyle.solid,
+                          width: 1),
                       onPressed: () {
                         setState(() {
                           selectedIndex = [false, true, false];
@@ -174,7 +176,7 @@ class _UserProfileState extends State<UserProfile>
                     ),
                   ),
                   Container(
-                    height:28,
+                    height: 28,
                     margin: EdgeInsets.only(right: 1),
                     child: new OutlineButton(
                       shape: RoundedRectangleBorder(
@@ -186,7 +188,9 @@ class _UserProfileState extends State<UserProfile>
                       textColor: Colors.blue,
                       child: Text('Derslerim'),
                       borderSide: BorderSide(
-                          color: Colors.blue, style: BorderStyle.solid, width: 1),
+                          color: Colors.blue,
+                          style: BorderStyle.solid,
+                          width: 1),
                       onPressed: () {
                         setState(() {
                           selectedIndex = [false, false, true];

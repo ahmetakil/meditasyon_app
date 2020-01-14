@@ -5,7 +5,7 @@ import 'package:meditasyon_app/models/home_page_model.dart';
 import 'package:meditasyon_app/screens/meditation_screen.dart';
 
 class LastLessons extends StatefulWidget {
-  List<TopLessonsWeekly> data;
+  final List<TopLessonsWeekly> data;
   LastLessons(this.data);
   @override
   _LastLessonsState createState() => _LastLessonsState();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class BottomNavigationWidget extends StatelessWidget {
   const BottomNavigationWidget({
     Key key,
@@ -34,4 +35,3 @@ class BottomNavigationWidget extends StatelessWidget {
         ]);
   }
 }
-

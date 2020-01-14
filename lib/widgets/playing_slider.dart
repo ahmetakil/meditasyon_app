@@ -5,19 +5,19 @@ import '../models/meditasyon.dart';
 import '../services/locator.dart';
 import '../services/music_service.dart';
 
-
 class NowPlayingSlider extends StatelessWidget {
   final musicService = locator<MusicService>();
 
   @override
   Widget build(BuildContext context) {
-
-    return StreamBuilder<MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>(
+    return StreamBuilder<
+        MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>(
       stream: Observable.combineLatest2(musicService.position,
           musicService.playerState, (a, b) => MapEntry(a, b)),
       builder: (BuildContext context,
-          AsyncSnapshot<MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>
-          snapshot) {
+          AsyncSnapshot<
+                  MapEntry<Duration, MapEntry<MeditasyonState, Meditasyon>>>
+              snapshot) {
         if (!snapshot.hasData) {
           return Slider(
             value: 0,
@@ -28,7 +28,8 @@ class NowPlayingSlider extends StatelessWidget {
         final Duration _currentDuration = snapshot.data.key;
         final Meditasyon _currentSong = snapshot.data.value.value;
         final int _millseconds = _currentDuration.inMilliseconds;
-        final int _songDurationInMilliseconds = _currentSong.totalDuration.inMilliseconds;
+        final int _songDurationInMilliseconds =
+            _currentSong.totalDuration.inMilliseconds;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
@@ -37,9 +38,7 @@ class NowPlayingSlider extends StatelessWidget {
             children: <Widget>[
               Text(
                 parseDuration(_currentDuration.inMilliseconds),
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               Expanded(
                 child: Slider(
@@ -64,9 +63,7 @@ class NowPlayingSlider extends StatelessWidget {
               ),
               Text(
                 parseDuration(_songDurationInMilliseconds),
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ],
           ),

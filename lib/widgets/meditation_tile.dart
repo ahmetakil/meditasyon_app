@@ -11,12 +11,10 @@ import '../utils/utils.dart';
 class MeditationTile extends StatelessWidget {
   Meditasyon meditasyon;
 
-  
   MeditationTile(this.meditasyon);
 
   @override
   Widget build(BuildContext context) {
-
     final musicService = locator<MusicService>();
 
     return Padding(
@@ -24,7 +22,6 @@ class MeditationTile extends StatelessWidget {
         child: StreamBuilder<MapEntry<MeditasyonState, Meditasyon>>(
             stream: musicService.playerState,
             builder: (context, snapshot) {
-
               if (!snapshot.hasData) {
                 return SpinKitDoubleBounce(
                   size: 48,
@@ -32,13 +29,14 @@ class MeditationTile extends StatelessWidget {
                 );
               }
 
-              final MeditasyonState _state = snapshot.data.key??MeditasyonState.WAITING;
+              final MeditasyonState _state =
+                  snapshot.data.key ?? MeditasyonState.WAITING;
               final Meditasyon _current = snapshot.data.value;
-
 
               return ListTile(
                 onTap: () {
-                  Navigator.of(context).pushNamed(AudioPlayerPage.route,arguments: meditasyon);
+                  Navigator.of(context)
+                      .pushNamed(AudioPlayerPage.route, arguments: meditasyon);
                 },
                 leading: Container(
                   decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
@@ -75,7 +73,8 @@ class MeditationTile extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Icon(
-                        _state == MeditasyonState.PLAYING && _current == meditasyon
+                        _state == MeditasyonState.PLAYING &&
+                                _current == meditasyon
                             ? Icons.pause
                             : Icons.play_arrow,
                         color: Colors.blue,
@@ -87,7 +86,9 @@ class MeditationTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      meditasyon.isCompleted ? "Tamamlandı" : meditasyon.stateText,
+                      meditasyon.isCompleted
+                          ? "Tamamlandı"
+                          : meditasyon.stateText,
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                     SizedBox(height: 3),
@@ -113,7 +114,8 @@ class MeditationTile extends StatelessWidget {
                           )
                       ],
                     ),
-                    if (_state == MeditasyonState.PLAYING && _current == meditasyon)
+                    if (_state == MeditasyonState.PLAYING &&
+                        _current == meditasyon)
                       NowPlayingSlider(),
                   ],
                 ),

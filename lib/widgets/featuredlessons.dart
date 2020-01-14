@@ -6,7 +6,9 @@ import 'package:meditasyon_app/screens/meditation_screen.dart';
 
 class FeaturedLessons extends StatefulWidget {
   List<LastLesson> data;
+
   FeaturedLessons(this.data);
+
   @override
   _FeaturedLessonsState createState() => _FeaturedLessonsState();
 }
@@ -38,12 +40,11 @@ class _FeaturedLessonsState extends State<FeaturedLessons> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(left: 8, right: 8),
-           
             width: 120.0,
             height: 120.0,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-                          child: CachedNetworkImage(
+              child: CachedNetworkImage(
                 imageUrl: imgUrl,
                 imageBuilder: (context, imageProvider) => Container(
                   decoration: BoxDecoration(

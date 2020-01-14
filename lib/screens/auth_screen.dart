@@ -56,7 +56,6 @@ class _AuthScreenState extends State<AuthScreen> {
     final UserLogin userLogin = await UserRepository.login(
         _emailController.text, _passwordController.text);
 
-
     setState(() {
       isLoading = false;
     });
@@ -69,10 +68,9 @@ class _AuthScreenState extends State<AuthScreen> {
     }
 
     Navigator.of(context).pushReplacementNamed(HomePage.route);
-
   }
 
-  void register() async{
+  void register() async {
     bool isValid = _formKey.currentState.validate();
     if (!isValid) {
       return;
@@ -83,15 +81,16 @@ class _AuthScreenState extends State<AuthScreen> {
       isLoading = true;
     });
 
-    final Register userRegister = await UserRepository.register(_emailController.text, _usernameController.text,
+    final Register userRegister = await UserRepository.register(
+        _emailController.text,
+        _usernameController.text,
         _passwordController.text);
-
 
     setState(() {
       isLoading = false;
     });
 
-    if(!userRegister.success){
+    if (!userRegister.success) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text(userRegister.message),
       ));
@@ -260,11 +259,17 @@ class _AuthScreenState extends State<AuthScreen> {
                                 borderRadius: BorderRadius.circular(8)),
                             onPressed:
                                 mode == AuthMode.LOGIN ? login : register,
-                            child: isLoading == true ? CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            ) : Text(mode == AuthMode.LOGIN ? "Giriş Yap" : "Kayıt Ol",
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            child: isLoading == true
+                                ? CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  )
+                                : Text(
+                                    mode == AuthMode.LOGIN
+                                        ? "Giriş Yap"
+                                        : "Kayıt Ol",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                           ),
                         ),
                         SizedBox(
@@ -274,7 +279,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           height: 40,
                           width: double.infinity,
                           child: RaisedButton(
-                            onPressed: () async{
+                            onPressed: () async {
                               UserRepository.testAuth();
                             },
                             color: Colors.deepPurpleAccent,

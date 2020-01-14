@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class OutlineButtonWidget extends StatelessWidget {
-
-  static int initIndex=1;
+  static int initIndex = 1;
 
   int index;
   String title;
   double width;
 
-  OutlineButtonWidget(this.title,this.width,this.index);
+  OutlineButtonWidget(this.title, this.width, this.index);
 
   @override
   Widget build(BuildContext context) {

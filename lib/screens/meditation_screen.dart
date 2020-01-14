@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:meditasyon_app/models/sounds_list_model.dart';
-import 'package:meditasyon_app/providers/lesson_provider.dart';
 import 'package:meditasyon_app/repository/sound_list_repository.dart';
 import 'package:meditasyon_app/screens/player.dart';
-import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../models/meditasyon.dart';
@@ -80,8 +78,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 future: SoundListRepository.getSounds(lessonId.toString()),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: Container(
-                ));
+                    return Center(child: Container());
                   } else if (snapshot.hasData) {
                     // return ProgressBar(snapshot.data.progress) //Progress eklenecek
                     return ProgressBar(25);
@@ -94,10 +91,11 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 future: SoundListRepository.getSounds(lessonId.toString()),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: SpinKitDoubleBounce(
-                  size: 48,
-                  color: Colors.blue,
-                ));
+                    return Center(
+                        child: SpinKitDoubleBounce(
+                      size: 48,
+                      color: Colors.blue,
+                    ));
                   } else if (snapshot.hasData) {
                     return Expanded(child: _buildListView(snapshot.data));
                   } else {
