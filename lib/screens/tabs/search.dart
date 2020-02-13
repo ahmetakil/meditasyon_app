@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/utils/utils.dart';
@@ -10,7 +12,7 @@ class Search extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(left: 8),
+          padding: EdgeInsets.all(12),
           width: double.infinity,
           child: SingleChildScrollView(
             child: Column(
@@ -19,20 +21,19 @@ class Search extends StatelessWidget {
               children: <Widget>[
                 // Stories(),
                 SearchBar(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
+
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 4),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Text(
                     "Hepsine Bakın",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 Container(
+                  padding: EdgeInsets.only(left: 12, right: 12),
                   height: MediaQuery.of(context).size.height,
                   child: Categories(),
                 ),
@@ -92,58 +93,128 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 2,
+        crossAxisCount: 1,
+        childAspectRatio: 2.75,
       ),
       children: <Widget>[
-        CategoryTile("Hikayeler", ""),
-        CategoryTile("Motivasyon", ""),
-        CategoryTile("Belgesel tadında", ""),
-        CategoryTile("Meditasyon", ""),
-        CategoryTile("Podcast", ""),
-        CategoryTile("Düşünce", ""),
-        CategoryTile("Rüyalar", ""),
-        CategoryTile("Farkındalık", ""),
-        CategoryTile("Uyku Öncesi", ""),
-        CategoryTile("Yürürken", ""),
-        CategoryTile("Sağlık", ""),
-        CategoryTile("Kişisel Gelişim", ""),
-        CategoryTile("Özgüven", ""),
+        CategoryTile("Hikayeler", "assets/search1.png", true, 0),
+        CategoryTile("Motivasyon", "assets/search2.png", false, 1),
+        CategoryTile("Belgesel tadında", "assets/search3.png", true, 3),
+        CategoryTile("Meditasyon", "assets/search4.png", false, 0),
+        CategoryTile("Podcast", "assets/search1.png", true, 1),
+        CategoryTile("Düşünce", "assets/search2.png", false, 2),
+        CategoryTile("Rüyalar", "assets/search3.png", true, 3),
+        CategoryTile("Farkındalık", "assets/search4.png", false, 0),
+        CategoryTile("Uyku Öncesi", "assets/search1.png", true, 1),
+        CategoryTile("Yürürken", "assets/search2.png", false, 2),
+        CategoryTile("Sağlık", "assets/search3.png", true, 3),
+        CategoryTile("Kişisel Gelişim", "assets/search4.png", false, 0),
+        CategoryTile("Özgüven", "assets/search1.png", true, 1),
       ],
     );
   }
 }
 
 class CategoryTile extends StatelessWidget {
+  final int gradientIndex;
+
+  List<LinearGradient> gradientList = [
+    LinearGradient(
+        colors: [
+          const Color(0xFF0392FF),
+          const Color(0xFF63F9D0),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+    LinearGradient(
+        colors: [
+          const Color(0xFF63F9D0),
+          const Color(0xFF0392FF),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+    LinearGradient(
+        colors: [
+          const Color(0xFFF3AD52),
+          const Color(0xFF8AFA69),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+    LinearGradient(
+        colors: [
+          const Color(0xFF8AFA69),
+          const Color(0xFFF3AD52),
+        ],
+        begin: const FractionalOffset(0.0, 0.0),
+        end: const FractionalOffset(1.0, 0.0),
+        stops: [0.0, 1.0],
+        tileMode: TileMode.clamp),
+  ];
+
+  List<Alignment> alignmentList = [
+    Alignment.topLeft,
+    Alignment.topCenter,
+    Alignment.topRight,
+    Alignment.center,
+    Alignment.centerRight,
+    Alignment.centerLeft,
+    Alignment.bottomRight,
+    Alignment.bottomCenter,
+    Alignment.bottomCenter
+  ];
+
   final String name;
   final String imageUrl;
+  final bool isLeftDirection;
+  var randomizer = new Random(); // can get a seed as a parameter
 
-  CategoryTile(this.name, this.imageUrl);
+  CategoryTile(
+      this.name, this.imageUrl, this.isLeftDirection, this.gradientIndex);
 
   @override
   Widget build(BuildContext context) {
+    int alignmentIndex = randomizer.nextInt(9);
+
     return Container(
+      margin: EdgeInsets.only(top: 12, left: 4, right: 4),
       decoration: BoxDecoration(
+        gradient: gradientList[gradientIndex],
         borderRadius: BorderRadius.circular(8),
       ),
-      padding: EdgeInsets.only(top: 6, bottom: 6, left: 4, right: 6),
+      padding: EdgeInsets.only(left: 4, right: 6),
       child: Stack(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              placeholder: (_, i) => Container(
-                color: Colors.red,
-              ),
+          Align(
+            alignment:
+                isLeftDirection ? Alignment.centerLeft : Alignment.centerRight,
+            child: Image.asset(
+              imageUrl,
             ),
           ),
-          Positioned(
-            top: 8,
-            left: 8,
-            child: Text(
-              name,
-              style: TextStyle(color: Colors.white),
+//          Align(
+//            alignment: alignmentList[alignmentIndex],
+//            child: Image.asset(
+//              "assets/circle_solid.png",
+//            ),
+//          ),
+          Align(
+            alignment:
+                !isLeftDirection ? Alignment.centerLeft : Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                name,
+                style: TextStyle(
+                    color: Colors.white.withOpacity(0.95),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 24),
+              ),
             ),
           ),
         ],

@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:meditasyon_app/screens/add_sound_screen.dart';
+import 'package:meditasyon_app/screens/notifications.dart';
 import 'package:meditasyon_app/screens/profile.dart';
 import 'package:meditasyon_app/screens/tabs/search.dart';
 import 'package:meditasyon_app/screens/voice_recorder.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     HomePageTab(),
     Search(),
     AddSoundScreen(),
-    VoiceRecorderScreen(),
+    NotificationScreen(),
     UserProfile()
   ];
 
@@ -56,8 +57,8 @@ class _HomePageState extends State<HomePage> {
                 activeColor: mainColor,
                 inactiveColor: inactiveColor),
             BottomNavyBarItem(
-                icon: Icon(Ionicons.ios_mic),
-                title: Text('Microphone'),
+                icon: Icon(Ionicons.ios_notifications),
+                title: Text('Bildirimler'),
                 activeColor: Colors.blue,
                 inactiveColor: inactiveColor),
             BottomNavyBarItem(
