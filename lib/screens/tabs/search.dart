@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:meditasyon_app/screens/tabs/search_.dart';
 import 'package:meditasyon_app/utils/utils.dart';
 
 class Search extends StatelessWidget {
@@ -50,6 +51,10 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => Search_()));
+      },
       child: Padding(
         padding: const EdgeInsets.only(left: 2.0, right: 2, bottom: 2),
         child: Row(
