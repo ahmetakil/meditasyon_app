@@ -78,19 +78,6 @@ class _MeditationScreenState extends State<MeditationScreen> {
                 future: SoundListRepository.getSounds(lessonId.toString()),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: Container());
-                  } else if (snapshot.hasData) {
-                    // return ProgressBar(snapshot.data.progress) //Progress eklenecek
-                    return ProgressBar(25);
-                  } else {
-                    return Text("");
-                  }
-                },
-              ),
-              FutureBuilder<SoundListModel>(
-                future: SoundListRepository.getSounds(lessonId.toString()),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
                     return Center(
                         child: SpinKitDoubleBounce(
                       size: 48,
@@ -125,80 +112,6 @@ class _MeditationScreenState extends State<MeditationScreen> {
             state: MeditasyonState.WAITING,
             totalDuration: Duration(minutes: 4)));
       },
-    );
-  }
-}
-
-class ProgressBar extends StatelessWidget {
-  final int progress;
-
-  ProgressBar(this.progress);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 2.0, right: 2, bottom: 2),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    decoration: BoxDecoration(
-                      gradient: PURPLE_GRADIENT,
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        left: 20, top: 7, bottom: 7, right: 20),
-                    child: FractionallySizedBox(
-                      widthFactor: progress / 100,
-                      child: Container(
-                        height: 36,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 16,
-                    left: 32,
-                    child: Container(
-                      child: Text(
-                        "%$progress",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          CircleAvatar(
-            //TODO DOWNLOAD BUTTON
-            radius: 24,
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, gradient: PURPLE_GRADIENT_VERTICAL),
-              child: Icon(
-                Icons.cloud_download,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
