@@ -66,8 +66,9 @@ class _MeditationScreenState extends State<MeditationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               IconButton(
+                iconSize: 36,
                 icon: Icon(
-                  Icons.close,
+                  Icons.arrow_back_ios,
                   color: Colors.blue,
                 ),
                 onPressed: () {
