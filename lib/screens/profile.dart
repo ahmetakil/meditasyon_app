@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/profileDatasModel.dart';
 import 'package:meditasyon_app/repository/profile_repository.dart';
+import 'package:meditasyon_app/screens/profile_edit.dart';
 import 'package:meditasyon_app/utils/utils.dart';
 import 'package:meditasyon_app/widgets/outline_button.dart';
 import 'package:meditasyon_app/widgets/resume.dart';
@@ -124,7 +125,10 @@ class _UserProfileState extends State<UserProfile>
                       ),
                     ],
                   ),
-                  OutlineButtonWidget("Profili düzenle", 180, 0)
+                  OutlineButtonWidget("Profili düzenle", 180, 0, () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => ProfileEditScreen()));
+                  })
                 ],
               ),
             ),

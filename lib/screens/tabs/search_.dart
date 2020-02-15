@@ -22,7 +22,6 @@ class Search_ extends StatelessWidget {
               children: <Widget>[
                 // Stories(),
                 SearchBar(),
-
                 Container(
                   height: MediaQuery.of(context).size.height,
                   child: SearchBody(),
