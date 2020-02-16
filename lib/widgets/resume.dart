@@ -19,64 +19,56 @@ class Resume extends StatelessWidget {
             Navigator.of(context)
                 .pushNamed(MeditationScreen.route, arguments: data.id);
           },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 10, left: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: Stack(
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          "https://i.hizliresim.com/r0oDz3.png",
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.2,
-                        ),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(right:16,left: 8),
+                height: MediaQuery.of(context).size.height * 0.2,
+                child: Stack(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        "https://i.hizliresim.com/r0oDz3.png",
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.2,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                            child: Text(
-                              data.name,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 28,
-                                  color: Colors.white),
-                            ),
-                            alignment: Alignment.topLeft),
+                    ),
+                    Positioned(
+                      top: 4,
+                      left: 12,
+                      child: Text(
+                        data.name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: Colors.white),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40, left: 10),
-                        child: Align(
-                          child: Text(
-                            data.userId,
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ),
-                          alignment: Alignment.topLeft,
-                        ),
+                    ),
+                    Positioned(
+                      top: 36,
+                      left: 12,
+                      child: Text(
+                        data.userId,
+                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, bottom: 45),
-                        child: Align(
-                          child: Text(
-                            "%${data.progress.toString()} tamamlandı",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 22,
-                                color: Colors.white),
-                          ),
-                          alignment: Alignment.bottomLeft,
-                        ),
+                    ),
+                    Positioned(
+                      bottom: 12,
+                      left: 12,
+                      child: Text(
+                        "%${data.progress.toString()} tamamlandı",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22,
+                            color: Colors.white),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

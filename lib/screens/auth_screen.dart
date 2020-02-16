@@ -113,9 +113,10 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Container(
+                height: 100,
                 decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                   BoxShadow(
                       color: Color(0xff441CA9),
@@ -150,17 +151,19 @@ class _AuthScreenState extends State<AuthScreen> {
                     : MediaQuery.of(context).size.height * 0.52,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                   child: Form(
                     key: _formKey,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         SizedBox(
                           height: 10,
                         ),
                         if (mode == AuthMode.REGISTER)
                           Container(
-                            height: 48,
+                            height: 36,
                             child: AnimatedOpacity(
                               opacity: mode == AuthMode.REGISTER ? 1.0 : 0.0,
                               duration: Duration(milliseconds: 600),
@@ -195,7 +198,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             height: 20,
                           ),
                         Container(
-                          height: 48,
+                          height: 36,
                           child: TextFormField(
                             controller: _emailController,
                             textInputAction: TextInputAction.next,
@@ -225,7 +228,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           height: 20,
                         ),
                         Container(
-                          height: 48,
+                          height: 36,
                           child: TextFormField(
                             controller: _passwordController,
                             obscureText: true,
@@ -251,7 +254,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           height: 25,
                         ),
                         Container(
-                          height: 40,
+                          height: 36,
                           width: double.infinity,
                           child: RaisedButton(
                             color: Colors.blue,
@@ -276,7 +279,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           height: 10,
                         ),
                         Container(
-                          height: 40,
+                          height: 36,
                           width: double.infinity,
                           child: RaisedButton(
                             onPressed: () async {
@@ -293,21 +296,14 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 15,
                         ),
-                        Flexible(
-                          fit: FlexFit.tight,
-                          child: Container(
-                            transform:
-                                Matrix4.translationValues(-15.0, 15.0, 0.0),
-                            // This is required to give it negative padding
-                            alignment: Alignment.centerLeft,
-                            child: FlatButton(
-                              onPressed: () {},
-                              child: Text("Şifremi Unuttum !"),
-                            ),
-                          ),
-                        ),
+                        Text(
+                          "Şifremi unuttum",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 13),
+                        )
                       ],
                     ),
                   ),

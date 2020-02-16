@@ -63,226 +63,181 @@ class _AudioPlayerPageState extends State<AudioPlayerPage>
             final MeditasyonState _state = snapshot.data.value.key;
             final Meditasyon _current = snapshot.data.value.value;
 
-            return Column(
-              children: <Widget>[
-                AnimatedBuilder(
-                  builder: (context, anim) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                          bottomLeft: Radius.circular(w / 2),
-                          bottomRight: Radius.circular(w / 2)),
-                      child: Container(
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: <Widget>[
-                            Image.network(
-                                'https://images.pexels.com/photos/810775/pexels-photo-810775.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-                                fit: BoxFit.cover),
-                            Positioned(
-                                left: 8,
-                                top: 32,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.close,
-                                          color: Colors.blue,
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.90,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: AnimatedBuilder(
+                      builder: (context, anim) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                              bottomLeft: Radius.circular(w / 2),
+                              bottomRight: Radius.circular(w / 2)),
+                          child: Container(
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: <Widget>[
+                                Image.network(
+                                    'https://images.pexels.com/photos/810775/pexels-photo-810775.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+                                    fit: BoxFit.cover),
+                                Positioned(
+                                    left: 8,
+                                    top: 32,
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Container(
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.close,
+                                              color: Colors.blue,
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          width: 48.0,
+                                          height: 48.0,
+                                          decoration: new BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: new BorderRadius.all(
+                                              new Radius.circular(50.0),
+                                            ),
+                                            border: new Border.all(
+                                              color: Colors.transparent
+                                                  .withOpacity(0.5),
+                                              width: 4.0,
+                                            ),
+                                          ),
                                         ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      width: 48.0,
-                                      height: 48.0,
-                                      decoration: new BoxDecoration(
+                                      ],
+                                    )),
+                                Positioned(
+                                  bottom: 220,
+                                  left: MediaQuery.of(context).size.width / 2 -
+                                      84,
+                                  child: Text(
+                                    printDuration(_currentDuration),
+                                    style: TextStyle(
+                                        fontSize: 72,
                                         color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 50,
+                                  left: MediaQuery.of(context).size.width / 2 -
+                                      42,
+                                  child: Container(
+                                    decoration: new BoxDecoration(
+                                      borderRadius: new BorderRadius.all(
+                                        new Radius.circular(50.0),
+                                      ),
+                                      border: new Border.all(
+                                        color: Colors.blue.withOpacity(0.4),
+                                        width: 4.0,
+                                      ),
+                                    ),
+                                    height: 84,
+                                    width: 84,
+                                    child: new Container(
+                                      width: 100.0,
+                                      height: 100.0,
+                                      decoration: new BoxDecoration(
+                                        color: const Color(0xff7c94b6),
+                                        image: new DecorationImage(
+                                          image: NetworkImage(
+                                              "https://miro.medium.com/max/3150/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
+                                          fit: BoxFit.cover,
+                                        ),
                                         borderRadius: new BorderRadius.all(
                                           new Radius.circular(50.0),
                                         ),
                                         border: new Border.all(
-                                          color: Colors.transparent
-                                              .withOpacity(0.5),
+                                          color: Colors.blue,
                                           width: 4.0,
                                         ),
                                       ),
                                     ),
-                                  ],
-                                )),
-                            Positioned(
-                              bottom: 220,
-                              left: MediaQuery.of(context).size.width / 2 - 84,
-                              child: Text(
-                                printDuration(_currentDuration),
-                                style: TextStyle(
-                                    fontSize: 72,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                                  ),
+                                )
+                              ],
                             ),
-                            Positioned(
-                              bottom: 50,
-                              left: MediaQuery.of(context).size.width / 2 - 42,
-                              child: Container(
-                                decoration: new BoxDecoration(
-                                  borderRadius: new BorderRadius.all(
-                                    new Radius.circular(50.0),
-                                  ),
-                                  border: new Border.all(
-                                    color: Colors.blue.withOpacity(0.4),
-                                    width: 4.0,
-                                  ),
-                                ),
-                                height: 84,
-                                width: 84,
-                                child: new Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: new BoxDecoration(
-                                    color: const Color(0xff7c94b6),
-                                    image: new DecorationImage(
-                                      image: NetworkImage(
-                                          "https://miro.medium.com/max/3150/1*mZ3xXbns5BiBFxrdEwloKg.jpeg"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: new BorderRadius.all(
-                                      new Radius.circular(50.0),
-                                    ),
-                                    border: new Border.all(
-                                      color: Colors.blue,
-                                      width: 4.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                            height: animation.value,
+                            color: Colors.amber,
+                          ),
+                        );
+                      },
+                      animation: _controller,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(_current.name),
+                    subtitle: Text("Ahmet Akıl"),
+                  ),
+                  NowPlayingSlider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.favorite_border,
+                          size: 36,
                         ),
-                        height: animation.value,
-                        color: Colors.amber,
+                        onPressed: () {},
                       ),
-                    );
-                  },
-                  animation: _controller,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 32.0),
-                      child: ListTile(
-                        title: Text(_current.name),
-                        subtitle: Text("Ahmet Akıl"),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 48.0),
-                      child: NowPlayingSlider(),
-                    ),
-                    SizedBox(
-                      height: 36,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(
-                              Icons.favorite_border,
-                              size: 36,
-                            ),
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.skip_previous,
-                              size: 36,
-                            ),
-                            onPressed: () {
-                              musicService.playPrevious(context);
-                            },
-                          ),
-                          FloatingActionButton(
-                            child: _state == MeditasyonState.PLAYING
-                                ? Icon(Icons.pause)
-                                : Icon(Icons.play_arrow),
-                            backgroundColor: Colors.blue,
-                            onPressed: () {
-                              switch (_state) {
-                                case MeditasyonState.PLAYING:
-                                  musicService.pauseMusic(_current);
-                                  break;
-                                case MeditasyonState.PAUSED:
-                                  musicService.playMusic(_current);
-                                  break;
-                                default:
-                                  break;
-                              }
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.skip_next,
-                              size: 36,
-                            ),
-                            onPressed: () {
-                              musicService.playNext(context);
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.cloud_queue,
-                              size: 36,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Flexible(
-                  child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext bc) {
-                              return buildBottomSheet();
-                            },
-                          );
+                      IconButton(
+                        icon: Icon(
+                          Icons.skip_previous,
+                          size: 36,
+                        ),
+                        onPressed: () {
+                          musicService.playPrevious(context);
                         },
-                        child: Stack(
-                          children: <Widget>[
-                            Container(
-                              width: 72,
-                              height: 72,
-                              child: QuarterCircle(
-                                circleAlignment: CircleAlignment.bottomLeft,
-                              ),
-                            ),
-                            Positioned(
-                                bottom: 12,
-                                left: 12,
-                                child: Container(
-                                  width: 32,
-                                  height: 32,
-                                  child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                        'assets/images/backmusicexample.png'),
-                                  ),
-                                ))
-                          ],
+                      ),
+                      FloatingActionButton(
+                        child: _state == MeditasyonState.PLAYING
+                            ? Icon(Icons.pause)
+                            : Icon(Icons.play_arrow),
+                        backgroundColor: Colors.blue,
+                        onPressed: () {
+                          switch (_state) {
+                            case MeditasyonState.PLAYING:
+                              musicService.pauseMusic(_current);
+                              break;
+                            case MeditasyonState.PAUSED:
+                              musicService.playMusic(_current);
+                              break;
+                            default:
+                              break;
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.skip_next,
+                          size: 36,
                         ),
-                      )),
-                ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        onPressed: () {
+                          musicService.playNext(context);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.cloud_queue,
+                          size: 36,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
             );
           }),
     );
