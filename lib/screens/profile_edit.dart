@@ -20,7 +20,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
           icon: Icon(Icons.chevron_left),
           color: Colors.black54,
           iconSize: 32,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+
+          },
         ),
         actions: <Widget>[
           IconButton(
@@ -28,7 +31,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
               Icons.check,
               color: Colors.black54,
             ),
-            onPressed: () {},
+            onPressed: () {
+            },
           )
         ],
         elevation: 0,

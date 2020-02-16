@@ -137,19 +137,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         child: ListView.builder(
                           itemCount: data.notifications.length + 5,
                           itemBuilder: (BuildContext context, int index) {
-                            return _acceptBuildItem(
-                                data
-                                    .notifications[
-                                        index % data.notifications.length]
-                                    .createdAt
-                                    .toString()
-                                    .replaceAll("00:00:00.000", ""),
-                                //veriyi çoğaltmak içim % kullanıldı
-                                data
-                                    .notifications[
-                                        index % data.notifications.length]
-                                    .message,
-                                color[index % 5]);
+                            if (data.notifications[index].isReaded == "0") {
+                              return Container();
+                            } else {
+                              return _acceptBuildItem(
+                                  data
+                                      .notifications[
+                                          index % data.notifications.length]
+                                      .createdAt
+                                      .toString()
+                                      .replaceAll("00:00:00.000", ""),
+                                  //veriyi çoğaltmak içim % kullanıldı
+                                  data
+                                      .notifications[
+                                          index % data.notifications.length]
+                                      .message,
+                                  color[index % 5],
+                                  data.notifications[index].id.toString());
+                            }
                           },
                         ),
                       ),
@@ -159,37 +164,108 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget _acceptBuildItem(time, title, LinearGradient color) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
-          decoration: BoxDecoration(
-              gradient: color,
-              borderRadius: BorderRadius.all(Radius.circular(8.0))),
-          height: 120.0,
-          child: Container(
-              padding: EdgeInsets.only(left: 16.0, right: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    time,
-                    style: TextStyle(color: Colors.white),
+  Widget _acceptBuildItem(time, title, LinearGradient color, notificationId) {
+    return InkWell(
+      onLongPress: () async {
+        showDeleteAlert(context, notificationId);
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.only(left: 8, right: 8, bottom: 16),
+            decoration: BoxDecoration(
+                gradient: color,
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            height: 120.0,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  right: 1,
+                  top: 1,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.restore_from_trash,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                    onPressed: () async {
+                      showDeleteAlert(context, notificationId);
+                    },
                   ),
-                  Text(
-                    title,
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text(
+                        time,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        title,
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      // Text(subtitle,
+                      //     style: TextStyle(color: Colors.white, fontSize: 12))
+                    ],
                   ),
-                  // Text(subtitle,
-                  //     style: TextStyle(color: Colors.white, fontSize: 12))
-                ],
-              )),
-        ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  showDeleteAlert(BuildContext context, String notificationId) async {
+    bool isDeleteClick = false;
+    Widget cancelButton = FlatButton(
+      child: Text("İptal"),
+      onPressed: () async {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = FlatButton(
+      color: Colors.red,
+      child: Text(
+        "Sil",
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () async {
+        setState(() {
+          isDeleteClick = true;
+        });
+        Navigator.of(context).pop();
+        var response =
+            await NotificationRepository.deleteNotifications(notificationId);
+        setState(() {});
+Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>NotificationScreen()));
+        setState(() {
+          isDeleteClick = false;
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Bildirim"),
+      content: Text("Seçtiğiniz bildirimi silmek istediğinize emin misiniz?"),
+      actions: [
+        cancelButton,
+        !isDeleteClick ? continueButton : Text("Siliniyor.."),
       ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

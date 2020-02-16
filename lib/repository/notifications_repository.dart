@@ -17,4 +17,17 @@ class NotificationRepository {
     final dataModel = NotificationModel.fromJson(data);
     return dataModel;
   }
+
+  static Future deleteNotifications(String notificationId) async {
+    final url = BASE_URL + "read_notifications";
+    final sp = await SharedPreferences.getInstance();
+    final apiKey = sp.getString("token");
+    final res =
+        await http.post(url, headers: {'Authorization': 'Bearer $apiKey'},body: {
+          'notification_id':notificationId
+        });
+    print(res.body);
+    final data = jsonDecode(res.body);
+    return data;
+  }
 }
