@@ -16,8 +16,11 @@ class _UserProfileState extends State<UserProfile>
     with SingleTickerProviderStateMixin {
   List<bool> selectedIndex = [true, false, false];
 
+  TabController _tabController;
+
   @override
   void initState() {
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -43,7 +46,7 @@ class _UserProfileState extends State<UserProfile>
 
   Widget buildBody(BuildContext context, ProfileModel data) {
     return Container(
-      padding: EdgeInsets.only(top: 48, left: 24, right: 24),
+      padding: EdgeInsets.only(top: 48, left: 12, right: 12),
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -131,95 +134,206 @@ class _UserProfileState extends State<UserProfile>
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
                 children: <Widget>[
-                  Container(
-                    height: 28,
-                    margin: EdgeInsets.only(left: 1),
-                    child: new OutlineButton(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        height: 28,
+                        margin: EdgeInsets.only(left: 1),
+                        child: FlatButton(
+                          color: _tabController.index == 0 ?
+                                    Colors.blue : null,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
                               color: Colors.blue,
                               width: 1,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(12)),
-                      textColor: Colors.blue,
-                      child: Text('Bitirdiklerim'),
-                      borderSide: BorderSide(
-                          color: Colors.blue,
-                          style: BorderStyle.solid,
-                          width: 1),
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = [true, false, false];
-                        });
-                      },
-                    ),
-                  ),
-                  Container(
-                    height: 28,
-                    child: new OutlineButton(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                            borderRadius: BorderRadius.circular(12)),
+                          textColor: _tabController.index == 0 ?
+                                        Colors.white : Colors.blue,
+                          child: Text('Bitirdiklerim'),
+                          onPressed: () {
+                            setState(() {
+                              _tabController.animateTo(0);
+                            });
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: 28,
+                        child: FlatButton(
+                          color: _tabController.index == 1 ?
+                          Colors.blue : null,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: Colors.blue,
+                                  width: 1,
+                                  style: BorderStyle.solid),
+                              borderRadius: BorderRadius.circular(12)),
+                          textColor: _tabController.index == 1 ?
+                                        Colors.white : Colors.blue,
+                          child: Text('Favorilerim'),
+                          onPressed: () {
+                            setState(() {
+                              _tabController.animateTo(1);
+                            });
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: 28,
+                        margin: EdgeInsets.only(right: 1),
+                        child: FlatButton(
+                          color: _tabController.index == 2 ?
+                          Colors.blue : null,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
                               color: Colors.blue,
                               width: 1,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(12)),
-                      textColor: Colors.blue,
-                      child: Text('Favorilerim'),
-                      borderSide: BorderSide(
-                          color: Colors.blue,
-                          style: BorderStyle.solid,
-                          width: 1),
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = [false, true, false];
-                        });
-                      },
-                    ),
+                              borderRadius: BorderRadius.circular(12)),
+                          textColor: _tabController.index == 2 ?
+                                        Colors.white : Colors.blue,
+                          child: Text('Derslerim'),
+                          onPressed: () {
+                            setState(() {
+                              _tabController.animateTo(2);
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    height: 28,
-                    margin: EdgeInsets.only(right: 1),
-                    child: new OutlineButton(
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.blue,
-                              width: 1,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(12)),
-                      textColor: Colors.blue,
-                      child: Text('Derslerim'),
-                      borderSide: BorderSide(
-                          color: Colors.blue,
-                          style: BorderStyle.solid,
-                          width: 1),
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = [false, false, true];
-                        });
-                      },
+                  SizedBox(
+                    height: 400,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: <Widget>[
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: data.user.completedLessons.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child:
+                                    Resume(data.user.completedLessons[index]),
+                              );
+                            }),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: data.user.favoriteLessons.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child:
+                                    Resume(data.user.favoriteLessons[index]),
+                              );
+                            }),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: data.user.ownerLessons.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12.0),
+                                child: Resume(data.user.ownerLessons[index]),
+                              );
+                            }),
+                      ],
                     ),
-                  ),
+                  )
                 ],
               ),
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: <Widget>[
+//                  Container(
+//                    height: 28,
+//                    margin: EdgeInsets.only(left: 1),
+//                    child: new OutlineButton(
+//                      shape: RoundedRectangleBorder(
+//                          side: BorderSide(
+//                              color: Colors.blue,
+//                              width: 1,
+//                              style: BorderStyle.solid),
+//                          borderRadius: BorderRadius.circular(12)),
+//                      textColor: Colors.blue,
+//                      child: Text('Bitirdiklerim'),
+//                      borderSide: BorderSide(
+//                          color: Colors.blue,
+//                          style: BorderStyle.solid,
+//                          width: 1),
+//                      onPressed: () {
+//                        setState(() {
+//                          selectedIndex = [true, false, false];
+//                        });
+//                      },
+//                    ),
+//                  ),
+//                  Container(
+//                    height: 28,
+//                    child: new OutlineButton(
+//                      shape: RoundedRectangleBorder(
+//                          side: BorderSide(
+//                              color: Colors.blue,
+//                              width: 1,
+//                              style: BorderStyle.solid),
+//                          borderRadius: BorderRadius.circular(12)),
+//                      textColor: Colors.blue,
+//                      child: Text('Favorilerim'),
+//                      borderSide: BorderSide(
+//                          color: Colors.blue,
+//                          style: BorderStyle.solid,
+//                          width: 1),
+//                      onPressed: () {
+//                        setState(() {
+//                          selectedIndex = [false, true, false];
+//                        });
+//                      },
+//                    ),
+//                  ),
+//                  Container(
+//                    height: 28,
+//                    margin: EdgeInsets.only(right: 1),
+//                    child: new OutlineButton(
+//                      shape: RoundedRectangleBorder(
+//                          side: BorderSide(
+//                              color: Colors.blue,
+//                              width: 1,
+//                              style: BorderStyle.solid),
+//                          borderRadius: BorderRadius.circular(12)),
+//                      textColor: Colors.blue,
+//                      child: Text('Derslerim'),
+//                      borderSide: BorderSide(
+//                          color: Colors.blue,
+//                          style: BorderStyle.solid,
+//                          width: 1),
+//                      onPressed: () {
+//                        setState(() {
+//                          selectedIndex = [false, false, true];
+//                        });
+//                      },
+//                    ),
+//                  ),
+//                ],
+//              ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: data.user.completedLessons.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Resume(selectedIndex[0]
-                        ? data.user.completedLessons[index]
-                        : selectedIndex[1]
-                            ? data.user.favoriteLessons[index]
-                            : selectedIndex[2]
-                                ? data.user.ownerLessons[index]
-                                : data.user.completedLessons[index]),
-                  );
-                }),
+//            ListView.builder(
+//                shrinkWrap: true,
+//                itemCount: data.user.completedLessons.length,
+//                itemBuilder: (context, index) {
+//                  return Padding(
+//                    padding: const EdgeInsets.only(bottom: 12.0),
+//                    child: Resume(selectedIndex[0]
+//                        ? data.user.completedLessons[index]
+//                        : selectedIndex[1]
+//                            ? data.user.favoriteLessons[index]
+//                            : selectedIndex[2]
+//                                ? data.user.ownerLessons[index]
+//                                : data.user.completedLessons[index]),
+//                  );
+//                }),
           ],
         ),
       ),

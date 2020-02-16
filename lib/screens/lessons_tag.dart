@@ -26,63 +26,21 @@ class _LessonsTagState extends State<LessonsTag> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    "Bugün",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text("30 Eylül 2019",
-                          style: TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                  Spacer(),
-                  Icon(Icons.delete),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Icon(Icons.cloud_download),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Icon(Icons.mic),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Icon(Icons.send)
-                ],
-              ),
-            ),
-            FutureBuilder<LessonModelTag>(
-              future: LessonsRepository.getLessonsFromTag(tagId.toString()),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                      child: SpinKitDoubleBounce(
-                    size: 48,
-                    color: Colors.blue,
-                  ));
-                } else if (snapshot.hasData) {
-                  return Expanded(child: _buildListView(snapshot.data.lessons));
-                } else {
-                  return Text("");
-                }
-              },
-            ),
-          ],
+        child: FutureBuilder<LessonModelTag>(
+          future: LessonsRepository.getLessonsFromTag(tagId.toString()),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                  child: SpinKitDoubleBounce(
+                size: 48,
+                color: Colors.blue,
+              ));
+            } else if (snapshot.hasData) {
+              return _buildListView(snapshot.data.lessons);
+            } else {
+              return Text("");
+            }
+          },
         ),
       ),
     );
