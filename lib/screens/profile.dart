@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/profileDatasModel.dart';
 import 'package:meditasyon_app/repository/profile_repository.dart';
 import 'package:meditasyon_app/screens/profile_edit.dart';
+import 'package:meditasyon_app/screens/settings.dart';
 import 'package:meditasyon_app/utils/utils.dart';
 import 'package:meditasyon_app/widgets/outline_button.dart';
 import 'package:meditasyon_app/widgets/resume.dart';
@@ -46,10 +47,22 @@ class _UserProfileState extends State<UserProfile>
 
   Widget buildBody(BuildContext context, ProfileModel data) {
     return Container(
-      padding: EdgeInsets.only(top: 48, left: 12, right: 12),
+      padding: EdgeInsets.only(top: 24, left: 12, right: 12),
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(child: SizedBox()),
+                IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.blue
+                  ),
+                  onPressed: _pushSettings
+                )
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -337,6 +350,14 @@ class _UserProfileState extends State<UserProfile>
           ],
         ),
       ),
+    );
+  }
+
+  _pushSettings() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Settings(),
+      )
     );
   }
 }
