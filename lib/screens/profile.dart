@@ -33,15 +33,15 @@ class _UserProfileState extends State<UserProfile>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder<ProfileModel>(
-      future: ProfileRepository.index(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return buildBody(context, snapshot.data);
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
+      body: FutureBuilder<ProfileModel>(
+        future: ProfileRepository.index(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return buildBody(context, snapshot.data);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
     ));
   }
 
@@ -70,7 +70,9 @@ class _UserProfileState extends State<UserProfile>
                   children: <Widget>[
                     ClipOval(
                       child: Image.network(
-                        IMAGE_BASE_URL + data.user.profilePicture,
+                        // IMAGE_BASE_URL + data.user.profilePicture,
+                        // Using dummy profile picture for now
+                        'https://i.pravatar.cc/300',
                         width: 80,
                         height: 80,
                         fit: BoxFit.cover,

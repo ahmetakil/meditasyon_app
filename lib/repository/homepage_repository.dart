@@ -10,7 +10,6 @@ class HomagePageRepository {
     final url = BASE_URL + "homepageInfos";
     final sp = await SharedPreferences.getInstance();
     final apiKey = sp.getString("token");
-    print('apiKey: $apiKey');
     final res =
         await http.post(url, headers: {'Authorization': 'Bearer $apiKey'});
     print(res.body);
