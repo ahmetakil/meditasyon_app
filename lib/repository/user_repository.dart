@@ -86,13 +86,16 @@ class UserRepository {
     final res =
         await http.post(url, headers: {'Authorization': 'Bearer $apiKey'});
 
-    final data = jsonDecode(res.body);
-
-    print("API RESPONSE : $data");
-    print("CURRENT TOKEN: $apiKey");
-
-    sp.setString("token", null);
-
-    return data["success"];
+    try {
+      final data = jsonDecode(res.body);
+      print("API RESPONSE : $data");
+      print("CURRENT TOKEN: $apiKey");
+      sp.setString("token", null);
+      return data["success"];
+    } catch (e, s) {
+      print('Exception occured: ${e.toString()}');
+      print(s);
+      return false;
+    }
   }
 }
