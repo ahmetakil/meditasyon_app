@@ -6,23 +6,27 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            GestureDetector(
-              child: ListTile(
-                leading: Icon(Icons.exit_to_app, color: Colors.blue),
-                title: Text(
-                  'Çıkış yap',
-                  style: TextStyle(
-                    fontSize: 18
+      body: Builder(
+        builder: (context) {
+          return SafeArea(
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  child: ListTile(
+                    leading: Icon(Icons.exit_to_app, color: Colors.blue),
+                    title: Text(
+                      'Çıkış yap',
+                      style: TextStyle(
+                        fontSize: 18
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              onTap: () => _logOut(context),
-            )
-          ],
-        ),
+                  onTap: () => _logOut(context),
+                )
+              ],
+            ),
+          );
+        }
       ),
     );
   }
@@ -35,7 +39,21 @@ class Settings extends StatelessWidget {
         (Route<dynamic> route) => false);
     } else {
       Scaffold.of(context).showSnackBar(
-        SnackBar(content: Text('Cannot logout. Try again'))
+        SnackBar(
+          backgroundColor: Colors.blue,
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Cannot logout. Try again',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white
+                ),
+              ),
+            ],
+          )
+        )
       );
     }
   }
