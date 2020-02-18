@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditasyon_app/models/profileDatasModel.dart';
 import 'package:meditasyon_app/repository/profile_repository.dart';
 import 'package:meditasyon_app/screens/profile_edit.dart';
+import 'package:meditasyon_app/screens/settings.dart';
 import 'package:meditasyon_app/utils/utils.dart';
 import 'package:meditasyon_app/widgets/outline_button.dart';
 import 'package:meditasyon_app/widgets/resume.dart';
@@ -32,24 +33,36 @@ class _UserProfileState extends State<UserProfile>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder<ProfileModel>(
-      future: ProfileRepository.index(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return buildBody(context, snapshot.data);
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
+      body: FutureBuilder<ProfileModel>(
+        future: ProfileRepository.index(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return buildBody(context, snapshot.data);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
     ));
   }
 
   Widget buildBody(BuildContext context, ProfileModel data) {
     return Container(
-      padding: EdgeInsets.only(top: 48, left: 12, right: 12),
+      padding: EdgeInsets.only(top: 24, left: 12, right: 12),
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Row(
+              children: <Widget>[
+                Expanded(child: SizedBox()),
+                IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.blue
+                  ),
+                  onPressed: _pushSettings
+                )
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -57,7 +70,9 @@ class _UserProfileState extends State<UserProfile>
                   children: <Widget>[
                     ClipOval(
                       child: Image.network(
-                        IMAGE_BASE_URL + data.user.profilePicture,
+                        // IMAGE_BASE_URL + data.user.profilePicture,
+                        // Using dummy profile picture for now
+                        'https://i.pravatar.cc/300',
                         width: 80,
                         height: 80,
                         fit: BoxFit.cover,
@@ -337,6 +352,14 @@ class _UserProfileState extends State<UserProfile>
           ],
         ),
       ),
+    );
+  }
+
+  _pushSettings() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Settings(),
+      )
     );
   }
 }
