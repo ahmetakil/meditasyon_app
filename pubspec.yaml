@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flare_flutter: ^1.7.3
   flutter_speed_dial: ^1.2.5
+  google_sign_in: ^4.4.1
 
 dev_dependencies:
   flutter_test:

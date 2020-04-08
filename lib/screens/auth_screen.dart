@@ -283,7 +283,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           width: double.infinity,
                           child: RaisedButton(
                             onPressed: () async {
-                              UserRepository.testAuth();
+                              UserRepository.signInWithGoogle();
                             },
                             color: Colors.deepPurpleAccent,
                             child: Text(

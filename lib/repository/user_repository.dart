@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/lesson.dart';
 import '../models/login.dart' show UserLogin;
@@ -76,6 +77,15 @@ class UserRepository {
 
     print(data);
     return data["success"];
+  }
+
+  static Future signInWithGoogle() async {
+    print('signing in with Google');
+    final googleSignIn = GoogleSignIn();
+    final googleSignInAccount = await googleSignIn.signIn();
+    final googleSignInAuthentication = await googleSignInAccount.authentication;
+    print('accessToken: ${googleSignInAuthentication.accessToken}');
+    print('idToken: ${googleSignInAuthentication.idToken}');
   }
 
   static Future<bool> logout() async {
